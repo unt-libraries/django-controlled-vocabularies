@@ -1,0 +1,14 @@
+{% extends 'vocabularies/vocabularies_index.html' %}
+{% block vocab_section %}Home{% endblock %}
+{% block content %}
+<table class='table table-striped table-hover'>
+    <tr><td><b>Name</b></td><td><b>Label</b></td><td><b>Definition</b></td></tr>
+{% for vocab in vocabularies %}
+    <tr>
+        <td><a href="{% url 'term_list' vocab.name %}">{{ vocab.name }}</a></td>
+        <td>{{vocab.label}}</td>
+        <td>{{vocab.definition}}</td>
+    </tr>
+{% endfor %}
+</table>
+{% endblock %}

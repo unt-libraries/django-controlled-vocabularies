@@ -1,0 +1,36 @@
+{% extends 'vocabularies/vocabularies_index.html' %}
+{% block vocab_section %}{{vocabulary.label}}{% endblock %}
+{% block content %}
+<div>
+Display as: <a href="{% url 'vocabulary_file' vocabulary.name "xml" %}">
+xml</a> | <a href="{% url 'vocabulary_file' vocabulary.name "tkl" %}">
+tkl</a> | <a href="{% url 'vocabulary_file' vocabulary.name "py" %}">
+py</a> | <a href="{% url 'vocabulary_file' vocabulary.name "json" %}">
+json</a>
+</div>
+<br/>
+<div class="table-responsive">
+<table class='table table-bordered table-striped table-hover'>
+{% for term in terms %}
+    <tr id="{{term.term_item.name}}">
+        <td class="success" colspan="2"><h4><b>Term Name: {{term.term_item.name}}</b></h4></td>
+    </tr>
+    <tr>
+        <td>URI:&nbsp;</td>
+        <td><a href='{{ domain }}vocabularies/{{ vocabulary.name }}/#{{term.term_item.name}}'>
+        {{ domain }}vocabularies/{{ vocabulary.name }}/#{{term.term_item.name}}</a>
+        </td></tr>
+    <tr>
+        <td>Label:&nbsp;</td>
+        <td>{{term.term_item.label}}&nbsp;</td>
+    </tr>
+    {% for property in term.properties %}
+    <tr>
+        <td>{{property.property_name|capfirst}}:&nbsp;</td>
+        <td>{{property.label}}</td>
+    </tr>
+    {% endfor %}
+{% endfor %}
+</table>
+</div>
+{% endblock %}
