@@ -1,3 +1,10 @@
+Attention!
+==========
+
+This app is currently undergoing major revisions! Please beware that it may not be in a functional state until said
+revisions are completed!
+
+
 Django-controlled-vocabularies
 ==============================
 
