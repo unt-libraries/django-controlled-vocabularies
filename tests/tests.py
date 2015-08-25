@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.test import Client
-from models import Vocabulary
+from controlled_vocabularies.models import Vocabulary
 
 class ResponseCodeTest(TestCase):
 
