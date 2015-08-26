@@ -7,6 +7,9 @@ setup(
     description='',
     long_description='See the home page for more information.',
     include_package_data=True,
+    install_requires = [
+        lxml >= 3.4.4,
+    ],
     url='https://github.com/unt-libraries/django-controlled-vocabularies',
     author='University of North Texas Libraries',
     author_email='mark.phillips@unt.edu',
