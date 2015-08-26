@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.test import Client
-from models import Vocabulary
+from controlled_vocabularies.models import Vocabulary
+
 
 class ResponseCodeTest(TestCase):
 
@@ -14,10 +15,10 @@ class ResponseCodeTest(TestCase):
             maintainerEmail='blah@tah.gaw',
             definition='collections',
         ).save()
-        
+
     def tearDown(self):
         pass
-        
+
     def test_main_page(self):
         response = self.c.get('/vocabularies/')
         self.assertEqual(response.status_code, 200)
