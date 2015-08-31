@@ -5,7 +5,7 @@
     <tr><td><b>Name</b></td><td><b>Label</b></td><td><b>Definition</b></td></tr>
 {% for vocab in vocabularies %}
     <tr>
-        <td><a href="{% url 'term_list' vocab.name %}">{{ vocab.name }}</a></td>
+        <td><a href="{% url 'vocabularies:term_list' vocab.name %}">{{ vocab.name }}</a></td>
         <td>{{vocab.label}}</td>
         <td>{{vocab.definition}}</td>
     </tr>

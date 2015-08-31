@@ -64,3 +64,7 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
+
+VOCAB_DOMAIN = 'http://purl.org/NET/UNTL/'
+
+VOCABULARIES_URL = "%svocabularies/all/" % (VOCAB_DOMAIN)
