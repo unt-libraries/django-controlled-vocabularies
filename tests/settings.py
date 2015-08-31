@@ -4,7 +4,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 SECRET_KEY = 'o+3_7(mv&ae@snp13(7!6ujk-p%p3gfem0+gt0ur4e%c0^yppw'
 
+SITE_ID = 1
+
 DEBUG = True
+
+TEMPLATE_DEBUG = True
 
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -13,6 +17,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'controlled_vocabularies',
 )
 
 MIDDLEWARE_CLASSES = (
