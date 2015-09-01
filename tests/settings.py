@@ -4,7 +4,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 SECRET_KEY = 'o+3_7(mv&ae@snp13(7!6ujk-p%p3gfem0+gt0ur4e%c0^yppw'
 
+SITE_ID = 1
+
 DEBUG = True
+
+TEMPLATE_DEBUG = True
 
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -13,6 +17,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'controlled_vocabularies',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -23,21 +29,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
-
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]
 
 ROOT_URLCONF = 'tests.urls'
 
@@ -59,3 +50,7 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
+
+VOCAB_DOMAIN = 'http://purl.org/NET/UNTL/'
+
+VOCABULARIES_URL = "%svocabularies/all/" % (VOCAB_DOMAIN)

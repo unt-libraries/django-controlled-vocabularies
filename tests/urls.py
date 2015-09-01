@@ -6,5 +6,5 @@ admin.autodiscover()
 urlpatterns = patterns(
     '',
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^vocabularies/', include('controlled_vocabularies.urls', namespace='vocabularies')),
+    url(r'^vocabularies/', include('controlled_vocabularies.urls')),
 )

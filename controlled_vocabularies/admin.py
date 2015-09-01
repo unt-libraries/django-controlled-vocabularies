@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django import forms
 from django.forms.formsets import formset_factory
-from controlled_vocabularies.models import Vocabulary, Property
+from controlled_vocabularies.models import Vocabulary, Term, Property
 
 class PropertyInline(admin.TabularInline):
     model = Property
@@ -55,3 +55,7 @@ class VocabularyAdminForm(forms.ModelForm):
     def clean_name(self):
         """ Make sure there are no spaces in the name field """
         return has_spaces(self.cleaned_data["name"])
+
+admin.site.register(Vocabulary, VocabularyAdmin)
+admin.site.register(Term, TermAdmin)
+admin.site.register(Property, PropertyAdmin)
