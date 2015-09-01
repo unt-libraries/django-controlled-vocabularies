@@ -2,10 +2,10 @@
 {% block vocab_section %}{{vocabulary.label}}{% endblock %}
 {% block content %}
 <div>
-Display as: <a href="{% url 'vocabularies:vocabulary_file' vocabulary.name "xml" %}">
-xml</a> | <a href="{% url 'vocabularies:vocabulary_file' vocabulary.name "tkl" %}">
-tkl</a> | <a href="{% url 'vocabularies:vocabulary_file' vocabulary.name "py" %}">
-py</a> | <a href="{% url 'vocabularies:vocabulary_file' vocabulary.name "json" %}">
+Display as: <a href="{% url 'vocabulary_file' vocabulary.name "xml" %}">
+xml</a> | <a href="{% url 'vocabulary_file' vocabulary.name "tkl" %}">
+tkl</a> | <a href="{% url 'vocabulary_file' vocabulary.name "py" %}">
+py</a> | <a href="{% url 'vocabulary_file' vocabulary.name "json" %}">
 json</a>
 </div>
 <br/>
