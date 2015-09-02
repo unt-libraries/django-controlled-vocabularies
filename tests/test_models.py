@@ -1,5 +1,4 @@
 class TestVocabulary:
-
     def test_save(self):
         pass
 
@@ -8,7 +7,6 @@ class TestVocabulary:
 
 
 class TestTerm:
-
     def test_unicode(self):
         pass
 
@@ -20,7 +18,6 @@ class TestTerm:
 
 
 class TestProperty:
-    
     def test_save(self):
         pass
 
