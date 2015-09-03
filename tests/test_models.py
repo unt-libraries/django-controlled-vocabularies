@@ -7,41 +7,43 @@ from controlled_vocabularies.models import Vocabulary, Term, Property
 def create_vocab(name='languages', label='Language', order='name',
                  maintainer='Buddy Noone', maintainerEmail='noone@nowhere.com',
                  definition='Lorem ipsum dolor sit amet'):
-    """Creates an unsaved instance of the Vocabulary model."""
-    return(Vocabulary(name=name,
-                      label=label,
-                      order=order,
-                      maintainer=maintainer,
-                      maintainerEmail=maintainer,
-                      definition=definition))
+    """Creates a saved instance of the Vocabulary model."""
+    vocab_instance = Vocabulary(name=name,
+                                label=label,
+                                order=order,
+                                maintainer=maintainer,
+                                maintainerEmail=maintainer,
+                                definition=definition)
+    vocab_instance.save()
+    return(vocab_instance)
 
 
 def create_term(name='spanish', label='Spanish', order=2):
-    """Creates an unsaved instance of the Term model."""
+    """Creates a saved instance of the Term model."""
     vocab_instance = create_vocab()
-    vocab_instance.save()
-    return(Term(vocab_list=vocab_instance,
-                name=name,
-                label=label,
-                order=order))
+    term_instance = Term(vocab_list=vocab_instance,
+                         name=name,
+                         label=label,
+                         order=order)
+    term_instance.save()
+    return(term_instance)
 
 
 def create_property(property_name='dialect', label='Catalan'):
-    """Creates an unsaved instance of the Property model."""
+    """Creates a saved instance of the Property model."""
     term_instance = create_term()
-    term_instance.save()
-    return(Property(term_key=term_instance,
-                    property_name=property_name,
-                    label=label))
+    property_instance = Property(term_key=term_instance,
+                                 property_name=property_name,
+                                 label=label)
+    property_instance.save()
+    return(property_instance)
 
 
 @pytest.mark.django_db
 class TestVocabulary:
     def test_save(self):
-        vocab_instance = create_vocab()
         assert Vocabulary.objects.all().count() == 0
-
-        vocab_instance.save()
+        create_vocab()
         assert Vocabulary.objects.all().count() == 1
 
     def test_unicode(self):
@@ -50,15 +52,13 @@ class TestVocabulary:
 
     @pytest.mark.xfail(reason='Input is not being cleaned before being saved.')
     def test_whitespace_stripped(self):
-        vocab_instance = create_vocab(
+        create_vocab(
             name=' spaces  here ',
             label=' Spaces here   too  ',
             maintainer=' Please   Fix Me ',
             maintainerEmail='  here@there.com ',
             definition='  Strip leading   and trailing, condense   others. '
         )
-        vocab_instance.save()
-
         vocab_from_db = Vocabulary.objects.get(pk=1)
 
         assert vocab_from_db.name == 'spaces here'
@@ -75,10 +75,8 @@ class TestTerm:
         assert unicode(term_instance) == 'spanish'
 
     def test_save(self):
-        term_instance = create_term()
         assert Term.objects.all().count() == 0
-
-        term_instance.save()
+        create_term()
         assert Term.objects.all().count() == 1
 
     def test_get_vocab(self):
@@ -92,12 +90,10 @@ class TestTerm:
 
     @pytest.mark.xfail(reason='Input is not being cleaned before being saved.')
     def test_whitespace_stripped(self):
-        term_instance = create_term(
+        create_term(
             name=' spaces  here ',
             label=' Spaces here   too  ',
         )
-        term_instance.save()
-
         term_from_db = Term.objects.get(pk=1)
 
         assert term_from_db.name == 'spaces here'
@@ -107,10 +103,8 @@ class TestTerm:
 @pytest.mark.django_db
 class TestProperty:
     def test_save(self):
-        property_instance = create_property()
         assert Property.objects.all().count() == 0
-
-        property_instance.save()
+        create_property()
         assert Property.objects.all().count() == 1
 
     def test_get_vocab(self):
@@ -133,12 +127,10 @@ class TestProperty:
 
     @pytest.mark.xfail(reason='Input is not being cleaned before being saved.')
     def test_whitespace_stripped(self):
-        property_instance = create_property(
+        create_property(
             property_name=' spaces  here ',
             label=' Spaces here   too  ',
         )
-        property_instance.save()
-
         property_from_db = Property.objects.get(pk=1)
 
         assert property_from_db.property_name == 'spaces here'
