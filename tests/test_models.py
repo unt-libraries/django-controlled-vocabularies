@@ -13,8 +13,7 @@ def create_vocab(name='languages', label='Language', order='name',
                       order=order,
                       maintainer=maintainer,
                       maintainerEmail=maintainer,
-                      definition=definition)
-    )
+                      definition=definition))
 
 
 def create_term(name='spanish', label='Spanish', order=2):
@@ -24,8 +23,7 @@ def create_term(name='spanish', label='Spanish', order=2):
     return(Term(vocab_list=vocab_instance,
                 name=name,
                 label=label,
-                order=order)
-    )
+                order=order))
 
 
 def create_property(property_name='dialect', label='Catalan'):
@@ -34,8 +32,7 @@ def create_property(property_name='dialect', label='Catalan'):
     term_instance.save()
     return(Property(term_key=term_instance,
                     property_name=property_name,
-                    label=label)
-    )
+                    label=label))
 
 
 @pytest.mark.django_db
@@ -68,9 +65,9 @@ class TestTerm:
     def test_get_vocab(self):
         term_instance = create_term()
         expected = "<a href='http://{}/admin/vocabularies/vocabulary/{}'>{}</a>".format(
-                Site.objects.get_current().domain,
-                term_instance.vocab_list.id,
-                term_instance.vocab_list
+            Site.objects.get_current().domain,
+            term_instance.vocab_list.id,
+            term_instance.vocab_list
         )
         assert term_instance.get_vocab() == expected
 
@@ -87,17 +84,17 @@ class TestProperty:
     def test_get_vocab(self):
         property_instance = create_property()
         expected = "<a href='http://{}/admin/vocabularies/vocabulary/{}'>{}</a>".format(
-                Site.objects.get_current().domain,
-                property_instance.term_key.vocab_list.id,
-                property_instance.term_key.vocab_list
+            Site.objects.get_current().domain,
+            property_instance.term_key.vocab_list.id,
+            property_instance.term_key.vocab_list
         )
         assert property_instance.get_vocab() == expected
 
     def test_get_term(self):
         property_instance = create_property()
         expected = "<a href='http://{}/admin/vocabularies/term/{}'>{}</a>".format(
-                Site.objects.get_current().domain,
-                property_instance.term_key.id,
-                property_instance.term_key
+            Site.objects.get_current().domain,
+            property_instance.term_key.id,
+            property_instance.term_key
         )
         assert property_instance.get_term() == expected
