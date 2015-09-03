@@ -48,6 +48,25 @@ class TestVocabulary:
         vocab_instance = create_vocab()
         assert unicode(vocab_instance) == 'languages'
 
+    @pytest.mark.xfail(reason='Input is not being cleaned before being saved.')
+    def test_whitespace_stripped(self):
+        vocab_instance = create_vocab(
+            name=' spaces  here ',
+            label=' Spaces here   too  ',
+            maintainer=' Please   Fix Me ',
+            maintainerEmail='  here@there.com ',
+            definition='  Strip leading   and trailing, condense   others. '
+        )
+        vocab_instance.save()
+
+        vocab_from_db = Vocabulary.objects.get(pk=1)
+
+        assert vocab_from_db.name == 'spaces here'
+        assert vocab_from_db.label == 'Spaces here too'
+        assert vocab_from_db.maintainer == 'Please Fix Me'
+        assert vocab_from_db.maintainerEmail == 'here@there.com'
+        assert vocab_from_db.definition == 'Strip leading and trailing, condense others.'
+
 
 @pytest.mark.django_db
 class TestTerm:
@@ -70,6 +89,19 @@ class TestTerm:
             term_instance.vocab_list
         )
         assert term_instance.get_vocab() == expected
+
+    @pytest.mark.xfail(reason='Input is not being cleaned before being saved.')
+    def test_whitespace_stripped(self):
+        term_instance = create_term(
+            name=' spaces  here ',
+            label=' Spaces here   too  ',
+        )
+        term_instance.save()
+
+        term_from_db = Term.objects.get(pk=1)
+
+        assert term_from_db.name == 'spaces here'
+        assert term_from_db.label == 'Spaces here too'
 
 
 @pytest.mark.django_db
@@ -98,3 +130,16 @@ class TestProperty:
             property_instance.term_key
         )
         assert property_instance.get_term() == expected
+
+    @pytest.mark.xfail(reason='Input is not being cleaned before being saved.')
+    def test_whitespace_stripped(self):
+        property_instance = create_property(
+            property_name=' spaces  here ',
+            label=' Spaces here   too  ',
+        )
+        property_instance.save()
+
+        property_from_db = Property.objects.get(pk=1)
+
+        assert property_from_db.property_name == 'spaces here'
+        assert property_from_db.label == 'Spaces here too'
