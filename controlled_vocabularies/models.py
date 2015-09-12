@@ -51,10 +51,10 @@ class Vocabulary(models.Model):
         help_text="A brief statement of the meaning of the vocabulary",
         )
 
-    def save(self):
+    def save(self, *args, **kwargs):
         if self.created == None:
             self.created = datetime.datetime.now()
-        super(Vocabulary, self).save()
+        super(Vocabulary, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return self.name
@@ -87,9 +87,9 @@ class Term(models.Model):
     def __unicode__(self):
         return self.name
 
-    def save(self):
+    def save(self, *args, **kwargs):
         self.vocab_list.modified = datetime.datetime.now()
-        super(Term, self).save()
+        super(Term, self).save(*args, **kwargs)
         self.vocab_list.save()
 
     def get_vocab(self):
@@ -119,10 +119,10 @@ class Property(models.Model):
         help_text="The value for the added property",
         )
 
-    def save(self):
+    def save(self, *args, **kwargs):
         self.property_name = string.lower(self.property_name)
         self.term_key.vocab_list.modified = datetime.datetime.now()
-        super(Property, self).save()
+        super(Property, self).save(*args, **kwargs)
         self.term_key.vocab_list.save()
 
     def get_vocab(self):
