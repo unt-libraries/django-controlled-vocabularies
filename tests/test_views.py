@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse
 from django.http import Http404
 
 from controlled_vocabularies import views
+from .factories import VocabularyFactory, TermFactory, PropertyFactory
 
 
 class TestAbout():
@@ -25,7 +26,6 @@ class TestVocabularyList():
         response = views.about(request)
         assert response.status_code == 200
 
-
     @pytest.mark.django_db
     def test_template_used(self, client):
         response = client.get(reverse('vocabulary_list'))
@@ -36,14 +36,17 @@ class TestTermList():
 
     @pytest.mark.django_db
     def test_status_ok(self, rf):
-       #request = rf.get('/')
-       #response = views.term_list(request)
-       #assert response.status_code == 200
-       pass
+        TermFactory(vocab_list=VocabularyFactory(name='Language'))
+        request = rf.get('/')
+        response = views.term_list(request, 'Language')
+        assert response.status_code == 200
 
-
+    @pytest.mark.django_db
     def test_template_used(self, client):
-        pass
+        TermFactory(vocab_list=VocabularyFactory(name='Language'))
+        response = client.get(reverse('term_list', args=['Language']))
+        assert response.templates[0].name == 'vocabularies/term_list.html'
+
 
 
 class TestAllVocabularies():
@@ -55,7 +58,6 @@ class TestAllVocabularies():
         assert response.status_code == 200
 
 
-
 class TestVerboseVocabularies():
 
     @pytest.mark.django_db
@@ -65,12 +67,11 @@ class TestVerboseVocabularies():
         assert response.status_code == 200
 
 
-
 class TestVocabularyFile():
 
     @pytest.mark.django_db
     def test_status_ok(self, rf):
-       #request = rf.get('/')
-       #response = views.vocabulary_file(request)
-       #assert response.status_code == 200
-        pass
+        VocabularyFactory(name='Language')
+        request = rf.get('/')
+        response = views.vocabulary_file(request, 'Language', 'XML')
+        assert response.status_code == 200
