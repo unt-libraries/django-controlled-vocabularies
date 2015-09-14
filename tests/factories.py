@@ -27,7 +27,6 @@ class TermFactory(factory.django.DjangoModelFactory):
     vocab_list = factory.SubFactory(VocabularyFactory)
     name = fuzzy.FuzzyText(length=25)
     label = fuzzy.FuzzyText(length=120)
-    order = fuzzy.FuzzyInteger(0, 100)
 
     class Meta:
         model = models.Term
