@@ -3,6 +3,8 @@ from django.contrib.sites.models import Site
 
 from controlled_vocabularies.models import Vocabulary, Term, Property
 
+pytestmark = pytest.mark.django_db
+
 
 def create_vocab(name='languages', label='Language', order='name',
                  maintainer='Buddy Noone', maintainerEmail='noone@nowhere.com',
@@ -39,7 +41,6 @@ def create_property(property_name='dialect', label='Catalan'):
     return(property_instance)
 
 
-@pytest.mark.django_db
 class TestVocabulary:
     def test_save(self):
         assert Vocabulary.objects.all().count() == 0
@@ -68,7 +69,6 @@ class TestVocabulary:
         assert vocab_from_db.definition == 'Strip leading and trailing, condense others.'
 
 
-@pytest.mark.django_db
 class TestTerm:
     def test_unicode(self):
         term_instance = create_term()
@@ -100,7 +100,6 @@ class TestTerm:
         assert term_from_db.label == 'Spaces here too'
 
 
-@pytest.mark.django_db
 class TestProperty:
     def test_save(self):
         assert Property.objects.all().count() == 0
