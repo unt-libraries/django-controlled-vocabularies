@@ -126,6 +126,11 @@ class TestVerboseVocabularies():
 
 class TestVocabularyFile():
 
+    def test_raises_http404_without_matching_vocabulary(self, rf):
+        request = rf.get('/')
+        with pytest.raises(Http404):
+            views.vocabulary_file(request, 'Language', 'XML')
+
     def test_status_ok_type_xml(self, rf):
         VocabularyFactory(name='Language')
         request = rf.get('/')
