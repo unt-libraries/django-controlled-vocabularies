@@ -32,6 +32,10 @@ class TermFactory(factory.django.DjangoModelFactory):
         model = models.Term
 
 
+class OrderedTermFactory(TermFactory):
+    order = factory.Sequence(lambda n: str(n))
+
+
 class PropertyFactory(factory.django.DjangoModelFactory):
     term_key = factory.SubFactory(TermFactory)
     property_name = fuzzy.FuzzyChoice(['definition', 'description', 'note', 'system'])
