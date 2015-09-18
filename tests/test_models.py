@@ -22,20 +22,20 @@ class TestVocabulary:
 
     @pytest.mark.xfail(reason='Input is not being cleaned before being saved.')
     def test_whitespace_stripped(self):
-        factories.VocabularyFactory(
+        vocab = factories.VocabularyFactory(
             name=' spaces  here ',
             label=' Spaces here   too  ',
             maintainer=' Please   Fix Me ',
             maintainerEmail='  here@there.com ',
             definition='  Strip leading   and trailing, condense   others. '
         )
-        vocab = Vocabulary.objects.get(pk=1)
+        updated_vocab = Vocabulary.objects.get(pk=vocab.pk)
 
-        assert vocab.name == 'spaces here'
-        assert vocab.label == 'Spaces here too'
-        assert vocab.maintainer == 'Please Fix Me'
-        assert vocab.maintainerEmail == 'here@there.com'
-        assert vocab.definition == 'Strip leading and trailing, condense others.'
+        assert updated_vocab.name == 'spaces here'
+        assert updated_vocab.label == 'Spaces here too'
+        assert updated_vocab.maintainer == 'Please Fix Me'
+        assert updated_vocab.maintainerEmail == 'here@there.com'
+        assert updated_vocab.definition == 'Strip leading and trailing, condense others.'
 
 
 class TestTerm:
@@ -61,14 +61,14 @@ class TestTerm:
 
     @pytest.mark.xfail(reason='Input is not being cleaned before being saved.')
     def test_whitespace_stripped(self):
-        factories.TermFactory(
+        term = factories.TermFactory(
             name=' spaces  here ',
             label=' Spaces here   too  ',
         )
-        term = Term.objects.get(pk=1)
+        updated_term = Term.objects.get(pk=term.pk)
 
-        assert term.name == 'spaces here'
-        assert term.label == 'Spaces here too'
+        assert updated_term.name == 'spaces here'
+        assert updated_term.label == 'Spaces here too'
 
 
 class TestProperty:
@@ -100,11 +100,11 @@ class TestProperty:
 
     @pytest.mark.xfail(reason='Input is not being cleaned before being saved.')
     def test_whitespace_stripped(self):
-        factories.PropertyFactory(
+        prop = factories.PropertyFactory(
             property_name=' spaces  here ',
             label=' Spaces here   too  ',
         )
-        prop = Property.objects.get(pk=1)
+        updated_prop = Property.objects.get(pk=prop)
 
-        assert prop.property_name == 'spaces here'
-        assert prop.label == 'Spaces here too'
+        assert updated_prop.property_name == 'spaces here'
+        assert updated_prop.label == 'Spaces here too'
