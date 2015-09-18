@@ -2,16 +2,17 @@ from lxml import objectify
 import pytest
 from django.forms import ValidationError
 
-from controlled_vocabularies import admin, views, vocabulary_handler
-from factories import PropertyFactory, TermFactory, VocabularyFactory, OrderedTermFactory
+from controlled_vocabularies import admin, views
+from controlled_vocabularies.vocabulary_handler import VocabularyHandler
+from . import factories
 
 
 @pytest.mark.django_db
 def test_create_term_list():
     """Test that only the terms associated with the given vocabulary are returned."""
-    vocab = VocabularyFactory()
-    vocab_terms = TermFactory.create_batch(4, vocab_list=vocab)
-    other_term = TermFactory()
+    vocab = factories.VocabularyFactory()
+    vocab_terms = factories.TermFactory.create_batch(4, vocab_list=vocab)
+    other_term = factories.TermFactory()
 
     term_list = views.create_term_list(vocab.id)
     for term in vocab_terms:
@@ -32,10 +33,10 @@ def test_has_spaces_without_spaces():
 class TestVocabularyHandler():
 
     def test_xml_response(self):
-        vocab = VocabularyFactory()
-        vocab_handler = vocabulary_handler.VocabularyHandler().xml_response(vocab)
+        vocab = factories.VocabularyFactory()
+        vocab_handler = VocabularyHandler().xml_response(vocab)
         assert vocab_handler.vocab == vocab
-        assert isinstance(vocab_handler, vocabulary_handler.VocabularyHandler)
+        assert isinstance(vocab_handler, VocabularyHandler)
 
     def test_create_xml(self):
         # XML namespaces.
@@ -43,11 +44,11 @@ class TestVocabularyHandler():
         dc_ns = '{http://purl.org/dc/elements/1.1/}'
         rdfs_ns = '{http://www.w3.org/2000/01/rdf-schema#}'
 
-        prop = PropertyFactory(property_name='definition')
+        prop = factories.PropertyFactory(property_name='definition')
         term = prop.term_key
         vocab = term.vocab_list
 
-        vocab_handler = vocabulary_handler.VocabularyHandler().xml_response(vocab)
+        vocab_handler = VocabularyHandler().xml_response(vocab)
 
         # Check that all the expected elements are in the vocab_list attribute and that they
         # have the expected values and attributes.
@@ -73,39 +74,41 @@ class TestVocabularyHandler():
         assert '<?xml version="1.0" encoding="UTF-8"?>' in vocab_handler.vocab_file
 
     def test_py_response(self):
-        vocab = VocabularyFactory()
-        vocab_handler = vocabulary_handler.VocabularyHandler().py_response(vocab)
+        vocab = factories.VocabularyFactory()
+        vocab_handler = VocabularyHandler().py_response(vocab)
         assert vocab_handler.vocab == vocab
-        assert isinstance(vocab_handler, vocabulary_handler.VocabularyHandler)
+        assert isinstance(vocab_handler, VocabularyHandler)
 
     def test_create_py(self):
-        vocab_handler = vocabulary_handler.VocabularyHandler().py_response(VocabularyFactory())
+        vocab_handler = VocabularyHandler().py_response(
+            factories.VocabularyFactory())
         vocab_handler.create_py()
         assert vocab_handler.vocab_mimetype == 'text/plain'
 
     def test_json_response(self):
-        vocab = VocabularyFactory()
-        vocab_handler = vocabulary_handler.VocabularyHandler().json_response(vocab)
+        vocab = factories.VocabularyFactory()
+        vocab_handler = VocabularyHandler().json_response(vocab)
         assert vocab_handler.vocab == vocab
-        assert isinstance(vocab_handler, vocabulary_handler.VocabularyHandler)
+        assert isinstance(vocab_handler, VocabularyHandler)
 
     def test_create_json(self):
-        vocab_handler = vocabulary_handler.VocabularyHandler().json_response(VocabularyFactory())
+        vocab_handler = VocabularyHandler().json_response(
+            factories.VocabularyFactory())
         vocab_handler.create_json()
         assert vocab_handler.vocab_mimetype == 'application/json'
 
     def test_tkl_response(self):
-        vocab = VocabularyFactory()
-        vocab_handler = vocabulary_handler.VocabularyHandler().tkl_response(vocab)
+        vocab = factories.VocabularyFactory()
+        vocab_handler = VocabularyHandler().tkl_response(vocab)
         assert vocab_handler.vocab == vocab
-        assert isinstance(vocab_handler, vocabulary_handler.VocabularyHandler)
+        assert isinstance(vocab_handler, VocabularyHandler)
 
     def test_create_tkl(self):
-        prop = PropertyFactory(property_name='linkback')
+        prop = factories.PropertyFactory(property_name='linkback')
         term = prop.term_key
         vocab = term.vocab_list
 
-        vocab_handler = vocabulary_handler.VocabularyHandler().tkl_response(vocab)
+        vocab_handler = VocabularyHandler().tkl_response(vocab)
 
         root = objectify.fromstring(vocab_handler.vocab_file)
 
@@ -124,45 +127,45 @@ class TestVocabularyHandler():
         assert '<?xml version="1.0" encoding="UTF-8"?>' in vocab_handler.vocab_file
 
     def test_create_tkl_order_by_name(self):
-        vocab = VocabularyFactory(order='name')
-        TermFactory.create_batch(4, vocab_list=vocab)
-        vocab_handler = vocabulary_handler.VocabularyHandler().tkl_response(vocab)
+        vocab = factories.VocabularyFactory(order='name')
+        factories.TermFactory.create_batch(4, vocab_list=vocab)
+        vocab_handler = VocabularyHandler().tkl_response(vocab)
 
         root = objectify.fromstring(vocab_handler.vocab_file)
 
         sorted_terms = vocab.term_set.order_by('name')
-        for i in range(4):
-            assert root.enum[i].get('value') == sorted_terms[i].name
+        for actual, expected in zip(root.enum, sorted_terms):
+            assert actual.get('value') == expected.name
 
     def test_create_tkl_order_by_label(self):
-        vocab = VocabularyFactory(order='label')
-        TermFactory.create_batch(4, vocab_list=vocab)
-        vocab_handler = vocabulary_handler.VocabularyHandler().tkl_response(vocab)
+        vocab = factories.VocabularyFactory(order='label')
+        factories.TermFactory.create_batch(4, vocab_list=vocab)
+        vocab_handler = VocabularyHandler().tkl_response(vocab)
 
         root = objectify.fromstring(vocab_handler.vocab_file)
 
         sorted_terms = vocab.term_set.order_by('label')
-        for i in range(4):
-            assert root.enum[i].get('value') == sorted_terms[i].name
+        for actual, expected in zip(root.enum, sorted_terms):
+            assert actual.get('value') == expected.name
 
     def test_create_tkl_order_by_order(self):
-        vocab = VocabularyFactory(order='order')
-        OrderedTermFactory.create_batch(4, vocab_list=vocab)
-        vocab_handler = vocabulary_handler.VocabularyHandler().tkl_response(vocab)
+        vocab = factories.VocabularyFactory(order='order')
+        factories.OrderedTermFactory.create_batch(4, vocab_list=vocab)
+        vocab_handler = VocabularyHandler().tkl_response(vocab)
 
         root = objectify.fromstring(vocab_handler.vocab_file)
 
         sorted_terms = vocab.term_set.order_by('order', 'name')
-        for i in range(4):
-            assert root.enum[i].get('value') == sorted_terms[i].name
+        for actual, expected in zip(root.enum, sorted_terms):
+            assert actual.get('value') == expected.name
 
     def test_create_vocab_dict(self):
         # Create a vocab, term, and property that should be in the vocab_dict.
-        prop = PropertyFactory()
+        prop = factories.PropertyFactory()
         term = prop.term_key
         vocab = term.vocab_list
 
-        vocab_handler = vocabulary_handler.VocabularyHandler().py_response(vocab)
+        vocab_handler = VocabularyHandler().py_response(vocab)
         vocab_dict = vocab_handler.create_vocab_dict('py')
 
         assert vocab_dict['name'] == vocab.name
@@ -186,20 +189,20 @@ class TestVocabularyHandler():
         }, ]
 
     def test_create_vocab_dict_format_py(self):
-        prop = PropertyFactory()
+        prop = factories.PropertyFactory()
         vocab = prop.term_key.vocab_list
 
-        vocab_handler = vocabulary_handler.VocabularyHandler().py_response(vocab)
+        vocab_handler = VocabularyHandler().py_response(vocab)
         vocab_dict = vocab_handler.create_vocab_dict('py')
 
         assert vocab_dict['created'] == vocab.created
         assert vocab_dict['modified'] == vocab.modified
 
     def test_create_vocab_dict_format_json(self):
-        prop = PropertyFactory()
+        prop = factories.PropertyFactory()
         vocab = prop.term_key.vocab_list
 
-        vocab_handler = vocabulary_handler.VocabularyHandler().py_response(vocab)
+        vocab_handler = VocabularyHandler().py_response(vocab)
         vocab_dict = vocab_handler.create_vocab_dict('json')
 
         assert vocab_dict['created'] == str(vocab.created)
