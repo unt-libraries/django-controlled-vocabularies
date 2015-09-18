@@ -6,12 +6,12 @@ from . import factories
 
 pytestmark = pytest.mark.django_db
 
-LINK= "<a href='http://{}/admin/vocabularies/{}/{}'>{}</a>"
+LINK = "<a href='http://{}/admin/vocabularies/{}/{}'>{}</a>"
 
 
 class TestVocabulary:
     def test_save(self):
-        vocab =  factories.VocabularyFactory.build()
+        vocab = factories.VocabularyFactory.build()
         assert Vocabulary.objects.all().count() == 0
         vocab.save()
         assert Vocabulary.objects.all().count() == 1
