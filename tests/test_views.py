@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 from django.http import Http404
 
 from controlled_vocabularies import views
-from .factories import VocabularyFactory, TermFactory
+from .factories import VocabularyFactory, TermFactory, OrderedTermFactory
 
 pytestmark = pytest.mark.django_db
 
@@ -34,6 +34,8 @@ class TestVocabularyList():
     def test_context_var(self, client):
         VocabularyFactory.create_batch(10)
         response = client.get(reverse('vocabulary_list'))
+
+        # We should have all of the vocabularies from the DB in the context.
         assert response.context['vocabularies'].count() == 10
 
 
@@ -60,10 +62,12 @@ class TestTermList():
         # Make 4 terms that should be retrieved.
         vocab = VocabularyFactory(name='Language')
         terms = TermFactory.create_batch(4, vocab_list=vocab)
+
         # And make 4 that shouldn't.
         TermFactory.create_batch(4)
 
         response = client.get(reverse('term_list', args=['Language']))
+
         assert response.context['vocabulary'] == vocab
         for term in response.context['terms']:
             assert term['term_item'] in terms
@@ -110,15 +114,16 @@ class TestVerboseVocabularies():
                 response.content.find("'order': 3"))
 
     def test_vocab_dict(self, rf):
-        terms = TermFactory.create_batch(4)
+        terms = OrderedTermFactory.create_batch(4)
+
         request = rf.get('/')
         response = views.verbose_vocabularies(request)
+
         for term in terms:
             assert term.vocab_list.name in response.content
             assert term.name in response.content
             assert term.label in response.content
-            if term.order is not None:
-                assert "'order': {}".format(term.order) in response.content
+            assert "'order': {}".format(term.order) in response.content
             assert 'http://purl.org/NET/UNTL/vocabularies/{}/#{}'.format(
                 term.vocab_list.name, term.name)
 
