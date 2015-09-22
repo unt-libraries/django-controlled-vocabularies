@@ -23,86 +23,86 @@ def test_xml_response():
 
 
 @pytest.fixture
-def vocab_file():
+def vocab_file_xml():
     prop = factories.PropertyFactory(property_name='definition')
 
     vocab_handler = VocabularyHandler().xml_response(prop.term_key.vocab_list)
     return prop, etree.fromstring(vocab_handler.vocab_file)
 
 
-def test_create_xml_RDF_element(vocab_file):
-    _, root = vocab_file
+def test_create_xml_RDF_element(vocab_file_xml):
+    _, root = vocab_file_xml
 
     assert root.tag == '{{{}}}RDF'.format(NS['rdf'])
 
 
-def test_create_xml_Description_element(vocab_file):
-    _, root = vocab_file
+def test_create_xml_Description_element(vocab_file_xml):
+    _, root = vocab_file_xml
 
     element = root.xpath('rdf:Description', namespaces=NS)[0]
     attrib = element.get('{{{}}}about'.format(NS['rdf']))
     assert attrib == NS['purl']
 
 
-def test_create_xml_title_element(vocab_file):
-    prop, root = vocab_file
+def test_create_xml_title_element(vocab_file_xml):
+    prop, root = vocab_file_xml
 
     element = root.xpath('rdf:Description/dc:title', namespaces=NS)[0]
     assert element.text == prop.term_key.vocab_list.label
 
 
-def test_create_xml_publisher_element(vocab_file):
-    _, root = vocab_file
+def test_create_xml_publisher_element(vocab_file_xml):
+    _, root = vocab_file_xml
 
     element = root.xpath('rdf:Description/dc:publisher', namespaces=NS)[0]
     assert element.text == 'University of North Texas Libraries'
 
 
-def test_create_xml_Description_subelement_description(vocab_file):
-    prop, root = vocab_file
+def test_create_xml_Description_subelement_description(vocab_file_xml):
+    prop, root = vocab_file_xml
 
     element = root.xpath('rdf:Description/dc:description', namespaces=NS)[0]
     assert element.text == prop.term_key.vocab_list.definition
 
 
-def test_create_xml_language_element(vocab_file):
-    _, root = vocab_file
+def test_create_xml_language_element(vocab_file_xml):
+    _, root = vocab_file_xml
 
     element = root.xpath('rdf:Description/dc:language', namespaces=NS)[0]
     assert element.text == 'English'
 
 
-def test_create_xml_date_element(vocab_file):
-    prop, root = vocab_file
+def test_create_xml_date_element(vocab_file_xml):
+    prop, root = vocab_file_xml
 
     element = root.xpath('rdf:Description/dc:date', namespaces=NS)[0]
     assert element.text == prop.term_key.vocab_list.created.strftime('%Y')
 
 
-def test_create_xml_Property_element(vocab_file):
-    prop, root = vocab_file
+def test_create_xml_Property_element(vocab_file_xml):
+    prop, root = vocab_file_xml
 
     element = root.xpath('rdf:Property', namespaces=NS)[0]
     attrib = element.get('{{{}}}about'.format(NS['rdf']))
     assert attrib == '{}#{}'.format(NS['purl'], prop.term_key.name)
 
 
-def test_create_xml_label_element(vocab_file):
-    prop, root = vocab_file
+def test_create_xml_label_element(vocab_file_xml):
+    prop, root = vocab_file_xml
 
     element = root.xpath('rdf:Property/rdfs:label', namespaces=NS)[0]
     assert element.text == prop.term_key.label
 
 
-def test_create_xml_Property_subelement_description(vocab_file):
-    prop, root = vocab_file
+def test_create_xml_Property_subelement_description(vocab_file_xml):
+    prop, root = vocab_file_xml
 
     element = root.xpath('rdf:Property/dc:description', namespaces=NS)[0]
     assert element.text == prop.label
 
 
-def test_create_xml_isDefinedBy_element(vocab_file):
-    _, root = vocab_file
+def test_create_xml_isDefinedBy_element(vocab_file_xml):
+    _, root = vocab_file_xml
 
     element = root.xpath('rdf:Property/rdfs:isDefinedBy', namespaces=NS)[0]
     attrib = element.get('{{{}}}resource'.format(NS['rdf']))
