@@ -145,6 +145,7 @@ def test_tkl_response():
 
 
 def test_create_tkl():
+    """Check that the xml doc has all the expected elements, values, and attributes."""
     prop = factories.PropertyFactory(property_name='linkback')
     term = prop.term_key
     vocab = term.vocab_list
@@ -153,7 +154,6 @@ def test_create_tkl():
 
     root = objectify.fromstring(vocab_handler.vocab_file)
 
-    # Check that the xml doc has all the expected elements, values, and attributes.
     assert root.tag == 'authority'
     assert root.get('creator') == vocab.maintainer
     assert root.get('created') == str(vocab.created).replace(' ', ', ')
@@ -223,7 +223,7 @@ def test_create_vocab_dict():
 
 
 def test_create_vocab_dict_term_sub_dict():
-    # Test that the embedded dictionary contains the right information.
+    """Test that the embedded dictionary contains the right information."""
     prop = factories.PropertyFactory()
     term = prop.term_key
     vocab = term.vocab_list
@@ -242,7 +242,7 @@ def test_create_vocab_dict_term_sub_dict():
 
 
 def test_create_vocab_dict_properties_sub_dict():
-    # Test that the embedded dictionary contains the right information.
+    """Test that the embedded dictionary contains the right information."""
     prop = factories.PropertyFactory()
 
     vocab_handler = VocabularyHandler().py_response(prop.term_key.vocab_list)
