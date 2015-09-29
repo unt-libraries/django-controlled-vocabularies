@@ -11,8 +11,9 @@ NS = {
     'rdf': 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
     'dc': 'http://purl.org/dc/elements/1.1/',
     'rdfs': 'http://www.w3.org/2000/01/rdf-schema#',
-    'purl': 'http://purl.org/NET/UNTL/vocabularies/formats/'
 }
+
+PURL = 'http://purl.org/NET/UNTL/vocabularies/formats/'
 
 
 def test_xml_response():
@@ -41,7 +42,7 @@ def test_create_xml_Description_element(vocab_file_xml):
 
     element = root.xpath('rdf:Description', namespaces=NS)[0]
     attrib = element.get('{{{}}}about'.format(NS['rdf']))
-    assert attrib == NS['purl']
+    assert attrib == PURL
 
 
 def test_create_xml_title_element(vocab_file_xml):
@@ -84,7 +85,7 @@ def test_create_xml_Property_element(vocab_file_xml):
 
     element = root.xpath('rdf:Property', namespaces=NS)[0]
     attrib = element.get('{{{}}}about'.format(NS['rdf']))
-    assert attrib == '{}#{}'.format(NS['purl'], prop.term_key.name)
+    assert attrib == '{}#{}'.format(PURL, prop.term_key.name)
 
 
 def test_create_xml_label_element(vocab_file_xml):
@@ -106,7 +107,7 @@ def test_create_xml_isDefinedBy_element(vocab_file_xml):
 
     element = root.xpath('rdf:Property/rdfs:isDefinedBy', namespaces=NS)[0]
     attrib = element.get('{{{}}}resource'.format(NS['rdf']))
-    assert attrib == NS['purl']
+    assert attrib == PURL
 
 
 def test_py_response():
@@ -236,8 +237,7 @@ def test_create_vocab_dict_term_sub_dict():
     assert term_dict['label'] == term.label
     assert term_dict['order'] == term.order
     assert term_dict['url'] == 'http://purl.org/NET/UNTL/vocabularies/{}/#{}'.format(
-        vocab.name,
-        term.name)
+        vocab.name, term.name)
     assert 'properties' in term_dict
 
 
