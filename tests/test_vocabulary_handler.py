@@ -7,10 +7,14 @@ from . import factories
 pytestmark = pytest.mark.django_db
 
 # Namespaces
+RDF = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'
+DC = 'http://purl.org/dc/elements/1.1/'
+RDFS = 'http://www.w3.org/2000/01/rdf-schema#'
+
 NS = {
-    'rdf': 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
-    'dc': 'http://purl.org/dc/elements/1.1/',
-    'rdfs': 'http://www.w3.org/2000/01/rdf-schema#',
+    'rdf': RDF,
+    'dc': DC,
+    'rdfs': RDFS
 }
 
 PURL = 'http://purl.org/NET/UNTL/vocabularies/formats/'
@@ -34,14 +38,14 @@ def vocab_file_xml():
 def test_create_xml_RDF_element(vocab_file_xml):
     _, root = vocab_file_xml
 
-    assert root.tag == '{{{}}}RDF'.format(NS['rdf'])
+    assert root.tag == '{{{}}}RDF'.format(RDF)
 
 
 def test_create_xml_Description_element(vocab_file_xml):
     _, root = vocab_file_xml
 
     element = root.xpath('rdf:Description', namespaces=NS)[0]
-    attrib = element.get('{{{}}}about'.format(NS['rdf']))
+    attrib = element.get('{{{}}}about'.format(RDF))
     assert attrib == PURL
 
 
@@ -84,7 +88,7 @@ def test_create_xml_Property_element(vocab_file_xml):
     prop, root = vocab_file_xml
 
     element = root.xpath('rdf:Property', namespaces=NS)[0]
-    attrib = element.get('{{{}}}about'.format(NS['rdf']))
+    attrib = element.get('{{{}}}about'.format(RDF))
     assert attrib == '{}#{}'.format(PURL, prop.term_key.name)
 
 
@@ -106,7 +110,7 @@ def test_create_xml_isDefinedBy_element(vocab_file_xml):
     _, root = vocab_file_xml
 
     element = root.xpath('rdf:Property/rdfs:isDefinedBy', namespaces=NS)[0]
-    attrib = element.get('{{{}}}resource'.format(NS['rdf']))
+    attrib = element.get('{{{}}}resource'.format(RDF))
     assert attrib == PURL
 
 
