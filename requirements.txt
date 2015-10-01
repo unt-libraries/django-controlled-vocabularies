@@ -1,2 +1,3 @@
-lxml >= 3.4.4
-Django == 1.6.11
+-rrequirements/requirements-common.txt
+-rrequirements/requirements-dev.txt
+-rrequirements/requirements-test.txt
