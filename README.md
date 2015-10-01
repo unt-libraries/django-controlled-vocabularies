@@ -11,11 +11,11 @@ The django-controlled-vocabularies app is used to manage vocabularies used by th
 includes: The [UNT Digital Library](http://digital.library.unt.edu), [The Portal to Texas History](http://texashistory.unt.edu), and the [Gateway to Oklahoma History](http://gateway.okhistory.org).
 
 
-Requirements
+System Requirements
 ------------
 
-* Django == 1.6
-* lxml == 3.4.4
+* libxml2
+* libxslt
 
 
 Installation
