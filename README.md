@@ -14,8 +14,8 @@ includes: The [UNT Digital Library](http://digital.library.unt.edu), [The Portal
 Requirements
 ------------
 
-Django == 1.6
-lxml == 3.4.4
+* Django == 1.6
+* lxml == 3.4.4
 
 
 Installation
