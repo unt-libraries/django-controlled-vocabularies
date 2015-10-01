@@ -18,7 +18,7 @@ setup(
     classifiers=[
         'Natural Language :: English',
         'Environment :: Web Environment',
-        'Framework :: Django :: 1.8',
+        'Framework :: Django :: 1.6',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',

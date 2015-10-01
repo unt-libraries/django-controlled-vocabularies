@@ -5,3 +5,4 @@ dist/
 build/
 .tox/
 *.sqlite3
+.cache
