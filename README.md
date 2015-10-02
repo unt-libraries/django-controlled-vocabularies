@@ -60,9 +60,15 @@ Installation
     ```
 
 6.  Migrate the database.
+
+    For Django >= 1.7:
     ```sh
         $ python manage.py migrate
-        # or python manage.py syncdb is using Django 1.6
+    ```
+
+    For Django 1.6:
+    ```sh
+        $ python manage.py syncdb
     ```
 
 
