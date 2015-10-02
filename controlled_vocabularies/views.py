@@ -61,7 +61,7 @@ def all_vocabularies(request):
         for term in Term.objects.filter(vocab_list=vocab.id):
             term_dict[term.name] = term.label
         vocab_dict[vocab.name] = term_dict
-    return HttpResponse(str(vocab_dict), mimetype='text/plain')
+    return HttpResponse(str(vocab_dict), content_type='text/plain')
 
 def verbose_vocabularies(request):
     vocab_dict = {}
@@ -93,7 +93,7 @@ def verbose_vocabularies(request):
             term_list.append(term_dict)
         #Add the term list to the vocabulary dictionary
         vocab_dict[vocab.name] = term_list
-    return HttpResponse(str(vocab_dict), mimetype='text/plain')
+    return HttpResponse(str(vocab_dict), content_type='text/plain')
 
 def vocabulary_file(request, list_name, file_format):
     try:
@@ -109,4 +109,4 @@ def vocabulary_file(request, list_name, file_format):
     elif string.upper(file_format) == 'TKL':
         vocabulary_object = VocabularyHandler.tkl_response(vocab)
 
-    return HttpResponse(vocabulary_object.vocab_file, mimetype=vocabulary_object.vocab_mimetype)
+    return HttpResponse(vocabulary_object.vocab_file, content_type=vocabulary_object.vocab_mimetype)
