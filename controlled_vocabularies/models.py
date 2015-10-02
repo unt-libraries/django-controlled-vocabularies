@@ -20,21 +20,21 @@ class Vocabulary(models.Model):
     """ Vocabulary Model """
     name = models.CharField(
         max_length=50,
-        help_text="The name or key that uniquely identify the vocabulary",
+        help_text="The name or key that uniquely identifies the vocabulary.",
         unique=True,
         )
     label = models.CharField(
         max_length=255,
-        help_text="The human readable name of the vocabulary",
+        help_text="The human-readable name of the vocabulary.",
         )
     order = models.CharField(
         max_length=10,
         choices=ORDER_CHOICES,
-        help_text="The preferred order of viewing the UNTL list of controled Vocabularies",
+        help_text="The preferred order for viewing the UNTL list of controlled vocabularies.",
         )
     maintainer = models.CharField(
         max_length=50,
-        help_text="The person responsible for creating and updating the vocabulary",
+        help_text="The person responsible for creating and updating the vocabulary.",
         )
     created = models.DateTimeField(editable=False)
     modified = models.DateTimeField(
@@ -44,11 +44,11 @@ class Vocabulary(models.Model):
     maintainerEmail = models.CharField(
         "Maintainer E-mail",
         max_length=50,
-        help_text="E-mail address of maintainer",
+        help_text="E-mail address of maintainer.",
         )
     definition = models.TextField(
         blank=True,
-        help_text="A brief statement of the meaning of the vocabulary",
+        help_text="A brief statement of the meaning of the vocabulary.",
         )
 
     def save(self, *args, **kwargs):
@@ -70,20 +70,20 @@ class Term(models.Model):
     vocab_list = models.ForeignKey(
         Vocabulary,
         verbose_name="Vocabulary",
-        help_text="The vocabulary that the term needs to be added",
+        help_text="The vocabulary that the term needs to be added to.",
         )
     name = models.CharField(
         max_length=50,
-        help_text="The name or key that uniquely identify the term within the vocabulary",
+        help_text="The name or key that uniquely identifies the term within the vocabulary.",
         )
     label = models.CharField(
         max_length=255,
-        help_text="The human readable name of the term",
+        help_text="The human-readable name of the term.",
         )
     order = models.IntegerField(
         blank=True,
         null=True,
-        help_text="The preferred order of viewing the term in the Vocabulary",
+        help_text="The preferred order for viewing the term in the vocabulary.",
         )
 
     def __unicode__(self):
@@ -117,10 +117,10 @@ class Property(models.Model):
         "Property Type",
         choices=PROPERTY_NAME_CHOICES,
         max_length=50,
-        help_text="The name of the added property. E.g. Description",
+        help_text="The name of the added property; e.g., 'Description'.",
         )
     label = models.TextField(
-        help_text="The value for the added property",
+        help_text="The value for the added property.",
         )
 
     def save(self, *args, **kwargs):
