@@ -19,7 +19,7 @@ def about(request):
 def create_term_list(vocab_id):
     term_list=[]
     vocab = Vocabulary.objects.get(id=vocab_id)
-    vocab_terms = Term.objects.filter(vocab_list=vocab_id).order_by(vocab.order, 'name')
+    vocab_terms = Term.objects.filter(vocab_list=vocab_id).order_by('order', 'name')
     for t in vocab_terms:
         term_dict = {}
         term_dict['term_item'] = t
@@ -70,11 +70,9 @@ def verbose_vocabularies(request):
         term_list = []
         #Get the terms for the vocabulary
         term_objects = Term.objects.filter(vocab_list=vocab.id)
-        #Attempt to order the terms by the vocabulary order
+        #Attempt to order the terms by the term order
         try:
-            ordered_term_objects = term_objects.order_by(
-                vocab.order,
-                )
+            ordered_term_objects = term_objects.order_by('order')
         except:
             ordered_term_objects = term_objects
         #Loop through the terms
