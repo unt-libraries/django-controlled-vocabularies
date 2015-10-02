@@ -54,6 +54,8 @@ class Vocabulary(models.Model):
     def save(self, *args, **kwargs):
         if self.created == None:
             self.created = datetime.datetime.now()
+        self.name = self.name.strip()
+        self.label = self.label.strip()
         super(Vocabulary, self).save(*args, **kwargs)
 
     def __unicode__(self):
@@ -89,6 +91,8 @@ class Term(models.Model):
 
     def save(self, *args, **kwargs):
         self.vocab_list.modified = datetime.datetime.now()
+        self.name = self.name.strip()
+        self.label = self.label.strip()
         super(Term, self).save(*args, **kwargs)
         self.vocab_list.save()
 
@@ -122,6 +126,7 @@ class Property(models.Model):
     def save(self, *args, **kwargs):
         self.property_name = string.lower(self.property_name)
         self.term_key.vocab_list.modified = datetime.datetime.now()
+        self.label = self.label.strip()
         super(Property, self).save(*args, **kwargs)
         self.term_key.vocab_list.save()
 

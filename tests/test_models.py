@@ -16,6 +16,11 @@ class TestVocabulary:
         vocab.save()
         assert Vocabulary.objects.all().count() == 1
 
+    def test_save_strips_whitespace(self):
+        vocab = factories.VocabularyFactory(name=' spaces ', label=' spaces ')
+        assert vocab.name == 'spaces'
+        assert vocab.label == 'spaces'
+
     def test_unicode(self):
         vocab = factories.VocabularyFactory()
         assert unicode(vocab) == vocab.name
@@ -31,6 +36,11 @@ class TestTerm:
         assert Term.objects.all().count() == 0
         term.save()
         assert Term.objects.all().count() == 1
+
+    def test_save_strips_whitespace(self):
+        vocab = factories.TermFactory(name=' spaces ', label=' spaces ')
+        assert vocab.name == 'spaces'
+        assert vocab.label == 'spaces'
 
     def test_get_vocab(self):
         term = factories.TermFactory()
@@ -49,6 +59,10 @@ class TestProperty:
         assert Property.objects.all().count() == 0
         prop.save()
         assert Property.objects.all().count() == 1
+
+    def test_save_strips_whitespace(self):
+        vocab = factories.PropertyFactory(label=' spaces ')
+        assert vocab.label == 'spaces'
 
     def test_get_vocab(self):
         prop = factories.PropertyFactory()
