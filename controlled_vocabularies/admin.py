@@ -51,6 +51,7 @@ class VocabularyAdminForm(forms.ModelForm):
     """ Vocabulary class to specify how form data is handled in admin """
     class Meta:
         model = Vocabulary
+        fields = '__all__'
 
     def clean_name(self):
         """ Make sure there are no spaces in the name field """
