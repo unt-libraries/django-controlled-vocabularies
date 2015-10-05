@@ -14,7 +14,7 @@ includes: The [UNT Digital Library](http://digital.library.unt.edu), [The Portal
 Requirements
 ------------
 
-* Django == 1.6
+* Django 1.6 - 1.8
 
 
 System Requirements
@@ -59,7 +59,14 @@ Installation
         ]
     ```
 
-6.  Sync the database.
+6.  Migrate the database.
+
+    For Django >= 1.7:
+    ```sh
+        $ python manage.py migrate
+    ```
+
+    For Django 1.6:
     ```sh
         $ python manage.py syncdb
     ```

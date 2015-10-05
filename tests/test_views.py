@@ -97,10 +97,9 @@ class TestVerboseVocabularies():
         response = views.verbose_vocabularies(request)
         assert response.status_code == 200
 
-    @pytest.mark.xfail(reason='Attempts to sort by order field in wrong model.')
     def test_ordered_term_objects_with_order_attributes(self, rf):
         # Create terms with a specified order.
-        vocab = VocabularyFactory(name='Language')
+        vocab = VocabularyFactory(name='Language', order='order')
         TermFactory(order=3, vocab_list=vocab)
         TermFactory(order=1, vocab_list=vocab)
         TermFactory(order=2, vocab_list=vocab)
