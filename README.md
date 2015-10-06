@@ -1,4 +1,4 @@
-Django-controlled-vocabularies
+Django Controlled Vocabularies
 ==============================
 
 [![Build Status](https://travis-ci.org/unt-libraries/django-controlled-vocabularies.svg?branch=master)](https://travis-ci.org/unt-libraries/django-controlled-vocabularies)
@@ -76,3 +76,12 @@ License
 -------
 
 See LICENSE.txt
+
+
+Contributors
+------------
+
+* Brandon Fredericks
+* [Mark Phillips](https://github.com/vphill)
+* [Joey Liechty](https://github.com/yeahdef)
+* [Gio Gottardi](https://github.com/somexpert)
