@@ -4,18 +4,20 @@ python: 2.7
 env:
     - TOX_ENV=flake8
     - TOX_ENV=py27-django16
+    - TOX_ENV=py27-django17
     - TOX_ENV=py27-django18
+    - TOX_ENV=py27-django19
     - TOX_ENV=py27-djangomaster
-    - TOX_ENV=py35-django16
-    - TOX_ENV=py35-django18
-    - TOX_ENV=py35-djangomaster
+    - TOX_ENV=py34-django16
+    - TOX_ENV=py34-django17
+    - TOX_ENV=py34-django18
+    - TOX_ENV=py34-django19
+    - TOX_ENV=py34-djangomaster
 matrix:
     allow_failures:
         - env: TOX_ENV=flake8
         - env: TOX_ENV=py27-djangomaster
-        - env: TOX_ENV=py35-django16
-        - env: TOX_ENV=py35-django18
-        - env: TOX_ENV=py35-djangomaster
+        - env: TOX_ENV=py34-djangomaster
 install:
     - pip install tox
 script:
