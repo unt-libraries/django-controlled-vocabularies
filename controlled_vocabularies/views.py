@@ -15,9 +15,9 @@ def about(request):
     )
 
 
-#Function to create a Term list using the vocab id # NOT A VIEW #
+# Function to create a Term list using the vocab id # NOT A VIEW #
 def create_term_list(vocab_id):
-    term_list=[]
+    term_list = []
     vocab = Vocabulary.objects.get(id=vocab_id)
     vocab_terms = Term.objects.filter(vocab_list=vocab_id).order_by(vocab.order, 'name')
     for t in vocab_terms:
@@ -28,6 +28,7 @@ def create_term_list(vocab_id):
 
     return term_list
 
+
 def vocabulary_list(request):
     return render_to_response(
         'vocabularies/vocabulary_list.html',
@@ -37,10 +38,11 @@ def vocabulary_list(request):
         RequestContext(request, {}),
     )
 
+
 def term_list(request, vocabulary_name):
     try:
         vocab_object = Vocabulary.objects.get(name__exact=vocabulary_name)
-    except:
+    except(Vocabulary.DoesNotExist, Vocabulary.MultipleObjectsReturned):
         raise http.Http404
     term_list = create_term_list(vocab_object.id)
 
@@ -54,6 +56,7 @@ def term_list(request, vocabulary_name):
         RequestContext(request, {}),
     )
 
+
 def all_vocabularies(request):
     vocab_dict = {}
     for vocab in Vocabulary.objects.all():
@@ -63,40 +66,42 @@ def all_vocabularies(request):
         vocab_dict[vocab.name] = term_dict
     return HttpResponse(str(vocab_dict), content_type='text/plain')
 
+
 def verbose_vocabularies(request):
     vocab_dict = {}
-    #Get all the vocabularies
+    # Get all the vocabularies
     for vocab in Vocabulary.objects.all():
         term_list = []
-        #Get the terms for the vocabulary
+        # Get the terms for the vocabulary
         term_objects = Term.objects.filter(vocab_list=vocab.id)
-        #Attempt to order the terms by the vocabulary order
+        # Attempt to order the terms by the vocabulary order
         try:
             ordered_term_objects = term_objects.order_by(vocab.order)
-        except:
+        except:     # noqa: E722
             ordered_term_objects = term_objects
-        #Loop through the terms
+        # Loop through the terms
         for term in ordered_term_objects:
-            #Create the url for the term
+            # Create the url for the term
             term_url = "%svocabularies/%s/#%s" % \
                 (settings.VOCAB_DOMAIN, vocab.name, term.name)
-            #Create the term data dictionary
+            # Create the term data dictionary
             term_dict = {
                 'name': term.name,
                 'label': term.label,
                 'order': term.order,
                 'url': term_url,
                 }
-            #Add it to the ordered term list
+            # Add it to the ordered term list
             term_list.append(term_dict)
-        #Add the term list to the vocabulary dictionary
+        # Add the term list to the vocabulary dictionary
         vocab_dict[vocab.name] = term_list
     return HttpResponse(str(vocab_dict), content_type='text/plain')
+
 
 def vocabulary_file(request, list_name, file_format):
     try:
         vocab = Vocabulary.objects.get(name__exact=list_name)
-    except:
+    except(Vocabulary.DoesNotExist, Vocabulary.MultipleObjectsReturned):
         raise http.Http404
     if string.upper(file_format) == 'XML':
         vocabulary_object = VocabularyHandler.xml_response(vocab)
@@ -107,4 +112,5 @@ def vocabulary_file(request, list_name, file_format):
     elif string.upper(file_format) == 'TKL':
         vocabulary_object = VocabularyHandler.tkl_response(vocab)
 
-    return HttpResponse(vocabulary_object.vocab_file, content_type=vocabulary_object.vocab_mimetype)
+    return HttpResponse(vocabulary_object.vocab_file,
+                        content_type=vocabulary_object.vocab_mimetype)
