@@ -1,8 +1,12 @@
-from django.conf.urls import *
-from controlled_vocabularies.views import *
+from django.conf.urls import patterns, url
+from controlled_vocabularies.views import (
+    vocabulary_list, verbose_vocabularies, about,
+    all_vocabularies, term_list, vocabulary_file
+)
 
-urlpatterns = patterns('',
-    #Search View
+urlpatterns = patterns(
+    '',
+    # Search View
     url(r'^$', vocabulary_list, name="vocabulary_list"),
     url(r'^all-verbose/?$', verbose_vocabularies, name="verbose_vocabularies"),
     url(r'^about/', about, name="about"),

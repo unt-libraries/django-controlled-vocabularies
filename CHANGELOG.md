@@ -2,6 +2,13 @@ Change Log
 ==========
 
 
+x.x.x
+-----
+
+* Added more testing environments (more Django and Python versions).
+* Made code compliant with PEP-8 style rules.
+
+
 1.0.1
 -----
 

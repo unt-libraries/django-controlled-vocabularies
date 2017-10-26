@@ -1,7 +1,7 @@
-import datetime, string
+import datetime
+import string
 from django.db import models
 from django.contrib.sites.models import Site
-from django.conf import settings
 
 ORDER_CHOICES = (
         ('name', 'name'),
@@ -15,6 +15,7 @@ PROPERTY_NAME_CHOICES = (
     ('note', 'Note'),
     ('system', 'System'),
 )
+
 
 class Vocabulary(models.Model):
     """ Vocabulary Model """
@@ -52,7 +53,7 @@ class Vocabulary(models.Model):
         )
 
     def save(self, *args, **kwargs):
-        if self.created == None:
+        if self.created is None:
             self.created = datetime.datetime.now()
         self.name = self.name.strip()
         self.label = self.label.strip()
@@ -64,6 +65,7 @@ class Vocabulary(models.Model):
     class Meta:
         verbose_name_plural = "Vocabularies"
         ordering = ['name']
+
 
 class Term(models.Model):
     """ Term Model """
@@ -107,6 +109,7 @@ class Term(models.Model):
         unique_together = ("name", "vocab_list")
         ordering = ['name']
 
+
 class Property(models.Model):
     """ Property Model """
     term_key = models.ForeignKey(
@@ -132,7 +135,8 @@ class Property(models.Model):
 
     def get_vocab(self):
         return "<a href=\'http://%s/admin/vocabularies/vocabulary/%s\'>%s</a>" % \
-               (Site.objects.get_current().domain, self.term_key.vocab_list.id, self.term_key.vocab_list)
+               (Site.objects.get_current().domain,
+                self.term_key.vocab_list.id, self.term_key.vocab_list)
     get_vocab.short_description = 'Vocabulary'
     get_vocab.allow_tags = True
 
