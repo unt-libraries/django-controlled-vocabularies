@@ -2,23 +2,10 @@ language: python
 sudo: false
 python: 2.7
 env:
-    - TOX_ENV=flake8
-    - TOX_ENV=py27-django16
-    - TOX_ENV=py27-django17
-    - TOX_ENV=py27-django18
-    - TOX_ENV=py27-django19
-    - TOX_ENV=py27-djangomaster
-    - TOX_ENV=py34-django16
-    - TOX_ENV=py34-django17
-    - TOX_ENV=py34-django18
-    - TOX_ENV=py34-django19
-    - TOX_ENV=py34-djangomaster
-matrix:
-    allow_failures:
-        - env: TOX_ENV=flake8
-        - env: TOX_ENV=py27-djangomaster
-        - env: TOX_ENV=py34-djangomaster
+    - DJANGO=1.7
+    - DJANGO=1.8
+    - DJANGO=1.9
 install:
-    - pip install tox
+    - pip install tox-travis
 script:
-    - tox -e $TOX_ENV
+    - tox
