@@ -3,8 +3,9 @@ sudo: false
 python: 2.7
 env:
     matrix:
-        - TOX_ENV=1.10
-        - TOX_ENV=1.11
+        - TOX_ENV=py27-django110
+        - TOX_ENV=py27-django111
+        - TOX_ENV=flake8
 install:
     - pip install tox-travis
 script:
