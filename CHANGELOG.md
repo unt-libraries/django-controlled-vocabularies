@@ -2,10 +2,11 @@ Change Log
 ==========
 
 
-x.x.x
+2.0.0
 -----
 
-* Added more testing environments (more Django and Python versions).
+* Upgraded Django compatibility to include 1.10 and 1.11.
+* Removed Django 1.7 - 1.9 compatibility.
 * Made code compliant with PEP-8 style rules.
 
 

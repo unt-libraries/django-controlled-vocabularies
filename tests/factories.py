@@ -1,7 +1,7 @@
 """
 Factories for creating instances of Vocabulary, Term, and Property Models.
 """
-from datetime import datetime
+from datetime import datetime, timedelta, tzinfo
 
 import factory
 from factory import fuzzy
@@ -9,13 +9,25 @@ from factory import fuzzy
 from controlled_vocabularies import models
 
 
+class UTC(tzinfo):
+    """UTC timezone for datetime objects."""
+    def utcoffset(self, dt):
+        return timedelta(0)
+
+    def tzname(self, dt):
+        return "UTC"
+
+    def dst(self, dt):
+        return timedelta(0)
+
+
 class VocabularyFactory(factory.django.DjangoModelFactory):
     name = fuzzy.FuzzyText()
     label = fuzzy.FuzzyText()
     order = fuzzy.FuzzyChoice(['name', 'label', 'order'])
     maintainer = fuzzy.FuzzyChoice(['Damon', 'Gio', 'Jason', 'Lauren', 'Mark'])
-    created = fuzzy.FuzzyNaiveDateTime(datetime(2012, 1, 1))
-    modified = datetime.now()
+    created = fuzzy.FuzzyDateTime(datetime(2012, 1, 1, tzinfo=UTC()))
+    modified = datetime.now(UTC())
     maintainerEmail = fuzzy.FuzzyText()
     definition = fuzzy.FuzzyText()
 

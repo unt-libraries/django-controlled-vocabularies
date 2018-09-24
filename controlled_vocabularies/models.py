@@ -1,7 +1,7 @@
-import datetime
 import string
 from django.db import models
 from django.contrib.sites.models import Site
+from django.utils.timezone import now
 
 ORDER_CHOICES = (
         ('name', 'name'),
@@ -54,7 +54,7 @@ class Vocabulary(models.Model):
 
     def save(self, *args, **kwargs):
         if self.created is None:
-            self.created = datetime.datetime.now()
+            self.created = now()
         self.name = self.name.strip()
         self.label = self.label.strip()
         super(Vocabulary, self).save(*args, **kwargs)
@@ -71,6 +71,7 @@ class Term(models.Model):
     """ Term Model """
     vocab_list = models.ForeignKey(
         Vocabulary,
+        on_delete=models.CASCADE,
         verbose_name="Vocabulary",
         help_text="The vocabulary that the term needs to be added to.",
         )
@@ -92,7 +93,7 @@ class Term(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        self.vocab_list.modified = datetime.datetime.now()
+        self.vocab_list.modified = now()
         self.name = self.name.strip()
         self.label = self.label.strip()
         super(Term, self).save(*args, **kwargs)
@@ -114,6 +115,7 @@ class Property(models.Model):
     """ Property Model """
     term_key = models.ForeignKey(
         Term,
+        on_delete=models.CASCADE,
         verbose_name="Term",
         )
     property_name = models.CharField(
@@ -128,7 +130,7 @@ class Property(models.Model):
 
     def save(self, *args, **kwargs):
         self.property_name = string.lower(self.property_name)
-        self.term_key.vocab_list.modified = datetime.datetime.now()
+        self.term_key.vocab_list.modified = now()
         self.label = self.label.strip()
         super(Property, self).save(*args, **kwargs)
         self.term_key.vocab_list.save()

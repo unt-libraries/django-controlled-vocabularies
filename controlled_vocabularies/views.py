@@ -2,16 +2,15 @@ import string
 from django import http
 from controlled_vocabularies.models import Vocabulary, Term, Property
 from django.http import HttpResponse
-from django.template import RequestContext
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from controlled_vocabularies.vocabulary_handler import VocabularyHandler
 from django.conf import settings
 
 
 def about(request):
-    return render_to_response(
+    return render(
+        request,
         'vocabularies/about.html',
-        RequestContext(request, {}),
     )
 
 
@@ -30,12 +29,10 @@ def create_term_list(vocab_id):
 
 
 def vocabulary_list(request):
-    return render_to_response(
+    return render(
+        request,
         'vocabularies/vocabulary_list.html',
-        {
-         'vocabularies': Vocabulary.objects.all().order_by('name'),
-        },
-        RequestContext(request, {}),
+        {'vocabularies': Vocabulary.objects.all().order_by('name')},
     )
 
 
@@ -46,14 +43,14 @@ def term_list(request, vocabulary_name):
         raise http.Http404
     term_list = create_term_list(vocab_object.id)
 
-    return render_to_response(
+    return render(
+        request,
         'vocabularies/term_list.html',
         {
             'vocabulary': vocab_object,
             'terms': term_list,
             'domain': settings.VOCAB_DOMAIN,
         },
-        RequestContext(request, {}),
     )
 
 

@@ -56,12 +56,12 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='term',
             name='vocab_list',
-            field=models.ForeignKey(verbose_name=b'Vocabulary', to='controlled_vocabularies.Vocabulary', help_text=b'The vocabulary that the term needs to be added'),
+            field=models.ForeignKey(verbose_name=b'Vocabulary', on_delete=models.CASCADE, to='controlled_vocabularies.Vocabulary', help_text=b'The vocabulary that the term needs to be added'),
         ),
         migrations.AddField(
             model_name='property',
             name='term_key',
-            field=models.ForeignKey(verbose_name=b'Term', to='controlled_vocabularies.Term'),
+            field=models.ForeignKey(verbose_name=b'Term', on_delete=models.CASCADE, to='controlled_vocabularies.Term'),
         ),
         migrations.AlterUniqueTogether(
             name='term',

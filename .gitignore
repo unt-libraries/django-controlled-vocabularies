@@ -6,3 +6,4 @@ build/
 .tox/
 *.sqlite3
 .cache
+.pytest_cache
