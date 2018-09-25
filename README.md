@@ -55,7 +55,7 @@ Installation
 5.  Include the URLs.
     ```python
         urlpatterns = [
-            url(r'^admin/', include(admin.site.urls)),
+            url(r'^admin/', admin.site.urls),
             url(r'^vocabularies/', include('controlled_vocabularies.urls'))
         ]
     ```
