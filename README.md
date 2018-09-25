@@ -14,7 +14,7 @@ includes: The [UNT Digital Library](http://digital.library.unt.edu), [The Portal
 Requirements
 ------------
 
-* Django 1.7 - 1.9
+* Django 1.10 - 1.11
 * Python 2.7
 
 
@@ -55,7 +55,7 @@ Installation
 5.  Include the URLs.
     ```python
         urlpatterns = [
-            url(r'^admin/', include(admin.site.urls)),
+            url(r'^admin/', admin.site.urls),
             url(r'^vocabularies/', include('controlled_vocabularies.urls'))
         ]
     ```

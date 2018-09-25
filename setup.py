@@ -2,13 +2,13 @@ from setuptools import setup, find_packages
 
 setup(
     name='django-controlled-vocabularies',
-    version='1.0.1',
+    version='2.0.0',
     packages=find_packages(exclude=['tests*']),
     description='',
     long_description='See the home page for more information.',
     include_package_data=True,
     install_requires=[
-        'lxml>=3.4.4',
+        'lxml==4.2.3',
     ],
     url='https://github.com/unt-libraries/django-controlled-vocabularies',
     author='University of North Texas Libraries',
@@ -18,9 +18,8 @@ setup(
     classifiers=[
         'Natural Language :: English',
         'Environment :: Web Environment',
-        'Framework :: Django :: 1.7',
-        'Framework :: Django :: 1.8',
-        'Framework :: Django :: 1.9',
+        'Framework :: Django :: 1.10',
+        'Framework :: Django :: 1.11',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
