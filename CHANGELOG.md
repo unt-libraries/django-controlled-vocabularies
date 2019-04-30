@@ -2,6 +2,12 @@ Change Log
 ==========
 
 
+2.1.0
+-----
+
+* Add the ability to retrieve all the vocabularies as JSON through /all.json and /all-verbose.json.
+
+
 2.0.0
 -----
 

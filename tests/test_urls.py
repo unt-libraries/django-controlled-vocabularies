@@ -11,12 +11,20 @@ def test_verbose_vocabularies():
     assert resolve('/vocabularies/all-verbose/').func == views.verbose_vocabularies
 
 
+def test_verbose_vocabularies_json():
+    assert resolve('/vocabularies/all-verbose.json').func == views.verbose_vocabularies
+
+
 def test_about():
     assert resolve('/vocabularies/about/').func == views.about
 
 
 def test_all_vocabularies():
     assert resolve('/vocabularies/all/').func == views.all_vocabularies
+
+
+def test_all_vocabularies_json():
+    assert resolve('/vocabularies/all.json').func == views.all_vocabularies
 
 
 def test_term_list():

@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='django-controlled-vocabularies',
-    version='2.0.0',
+    version='2.1.0',
     packages=find_packages(exclude=['tests*']),
     description='',
     long_description='See the home page for more information.',
