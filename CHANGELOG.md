@@ -5,7 +5,7 @@ Change Log
 2.1.0
 -----
 
-* Add the ability to retrieve all the vocabularies as JSON through /all.json and /all-verbose.json.
+* Added the /all.[json|py] and /all-verbose.[json/py] URL patterns. Existing /all and /all-verbose patterns will be deprecated.
 
 
 2.0.0
