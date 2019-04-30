@@ -54,20 +54,20 @@ def term_list(request, vocabulary_name):
     )
 
 
-def all_vocabularies(request, json=False):
+def all_vocabularies(request, file_format='py'):
     vocab_dict = {}
     for vocab in Vocabulary.objects.all():
         term_dict = {}
         for term in Term.objects.filter(vocab_list=vocab.id):
             term_dict[term.name] = term.label
         vocab_dict[vocab.name] = term_dict
-    if json:
+    if file_format == 'json':
         return JsonResponse(vocab_dict)
     else:
         return HttpResponse(str(vocab_dict), content_type='text/plain')
 
 
-def verbose_vocabularies(request, json=False):
+def verbose_vocabularies(request, file_format='py'):
     vocab_dict = {}
     # Get all the vocabularies
     for vocab in Vocabulary.objects.all():
@@ -95,7 +95,7 @@ def verbose_vocabularies(request, json=False):
             term_list.append(term_dict)
         # Add the term list to the vocabulary dictionary
         vocab_dict[vocab.name] = term_list
-    if json:
+    if file_format == 'json':
         return JsonResponse(vocab_dict)
     else:
         return HttpResponse(str(vocab_dict), content_type='text/plain')

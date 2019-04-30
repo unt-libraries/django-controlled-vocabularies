@@ -93,7 +93,7 @@ class TestAllVocabularies():
     def test_vocab_json(self, rf):
         TermFactory.create_batch(4)
         request = rf.get('/')
-        response = views.all_vocabularies(request, json=True)
+        response = views.all_vocabularies(request, file_format='json')
         assert isinstance(response, JsonResponse)
         assert json.loads(response.content)
 
@@ -137,7 +137,7 @@ class TestVerboseVocabularies():
     def test_vocab_json(self, rf):
         OrderedTermFactory.create_batch(4)
         request = rf.get('/')
-        response = views.verbose_vocabularies(request, json=True)
+        response = views.verbose_vocabularies(request, file_format='json')
 
         assert isinstance(response, JsonResponse)
         assert json.loads(response.content)
