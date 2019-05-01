@@ -2,6 +2,12 @@ Change Log
 ==========
 
 
+2.1.0
+-----
+
+* Added the /all.[json|py] and /all-verbose.[json/py] URL patterns. Existing /all and /all-verbose patterns will be deprecated.
+
+
 2.0.0
 -----
 

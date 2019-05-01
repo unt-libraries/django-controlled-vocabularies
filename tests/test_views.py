@@ -1,6 +1,7 @@
 import pytest
+import json
 from django.urls import reverse
-from django.http import Http404
+from django.http import Http404, JsonResponse
 
 from controlled_vocabularies import views
 from .factories import VocabularyFactory, TermFactory, OrderedTermFactory
@@ -89,6 +90,13 @@ class TestAllVocabularies():
             assert term.vocab_list.name in response.content
             assert term.name in response.content
 
+    def test_vocab_json(self, rf):
+        TermFactory.create_batch(4)
+        request = rf.get('/')
+        response = views.all_vocabularies(request, file_format='json')
+        assert isinstance(response, JsonResponse)
+        assert json.loads(response.content)
+
 
 class TestVerboseVocabularies():
 
@@ -125,6 +133,14 @@ class TestVerboseVocabularies():
             assert "'order': {}".format(term.order) in response.content
             assert 'http://purl.org/NET/UNTL/vocabularies/{}/#{}'.format(
                 term.vocab_list.name, term.name)
+
+    def test_vocab_json(self, rf):
+        OrderedTermFactory.create_batch(4)
+        request = rf.get('/')
+        response = views.verbose_vocabularies(request, file_format='json')
+
+        assert isinstance(response, JsonResponse)
+        assert json.loads(response.content)
 
 
 class TestVocabularyFile():

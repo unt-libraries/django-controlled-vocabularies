@@ -1,7 +1,7 @@
 import string
 from django import http
 from controlled_vocabularies.models import Vocabulary, Term, Property
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from controlled_vocabularies.vocabulary_handler import VocabularyHandler
 from django.conf import settings
@@ -54,17 +54,20 @@ def term_list(request, vocabulary_name):
     )
 
 
-def all_vocabularies(request):
+def all_vocabularies(request, file_format='py'):
     vocab_dict = {}
     for vocab in Vocabulary.objects.all():
         term_dict = {}
         for term in Term.objects.filter(vocab_list=vocab.id):
             term_dict[term.name] = term.label
         vocab_dict[vocab.name] = term_dict
-    return HttpResponse(str(vocab_dict), content_type='text/plain')
+    if file_format == 'json':
+        return JsonResponse(vocab_dict)
+    else:
+        return HttpResponse(str(vocab_dict), content_type='text/plain')
 
 
-def verbose_vocabularies(request):
+def verbose_vocabularies(request, file_format='py'):
     vocab_dict = {}
     # Get all the vocabularies
     for vocab in Vocabulary.objects.all():
@@ -92,7 +95,10 @@ def verbose_vocabularies(request):
             term_list.append(term_dict)
         # Add the term list to the vocabulary dictionary
         vocab_dict[vocab.name] = term_list
-    return HttpResponse(str(vocab_dict), content_type='text/plain')
+    if file_format == 'json':
+        return JsonResponse(vocab_dict)
+    else:
+        return HttpResponse(str(vocab_dict), content_type='text/plain')
 
 
 def vocabulary_file(request, list_name, file_format):
