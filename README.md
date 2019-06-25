@@ -41,10 +41,9 @@ Installation
         )
     ```
 
-3.  Set the VOCAB_DOMAIN and VOCABULARIES_URL settings to your own desired locations.
+3.  Set the VOCAB_DOMAIN setting to your own desired location.
     ```python
         VOCAB_DOMAIN = 'http://example.org/vocabs/'
-        VOCABULARIES_URL = '%svocabularies/all/' % (VOCAB_DOMAIN)
     ```
 
 4.  Set the SITE_ID.
