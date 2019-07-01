@@ -2,6 +2,12 @@ Change Log
 ==========
 
 
+x.x.x
+-----
+
+* Removed VOCABULARIES_URL from test settings and README, as that is a defunct setting.
+
+
 2.1.0
 -----
 
