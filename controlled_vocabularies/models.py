@@ -1,4 +1,3 @@
-import string
 from django.db import models
 from django.contrib.sites.models import Site
 from django.utils.timezone import now
@@ -59,7 +58,7 @@ class Vocabulary(models.Model):
         self.label = self.label.strip()
         super(Vocabulary, self).save(*args, **kwargs)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     class Meta:
@@ -89,7 +88,7 @@ class Term(models.Model):
         help_text="The preferred order for viewing the term in the vocabulary.",
         )
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def save(self, *args, **kwargs):
@@ -129,7 +128,7 @@ class Property(models.Model):
         )
 
     def save(self, *args, **kwargs):
-        self.property_name = string.lower(self.property_name)
+        self.property_name = self.property_name.lower()
         self.term_key.vocab_list.modified = now()
         self.label = self.label.strip()
         super(Property, self).save(*args, **kwargs)

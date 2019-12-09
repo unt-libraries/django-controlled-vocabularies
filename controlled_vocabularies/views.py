@@ -1,4 +1,3 @@
-import string
 from django import http
 from controlled_vocabularies.models import Vocabulary, Term, Property
 from django.http import HttpResponse, JsonResponse
@@ -106,13 +105,13 @@ def vocabulary_file(request, list_name, file_format):
         vocab = Vocabulary.objects.get(name__exact=list_name)
     except(Vocabulary.DoesNotExist, Vocabulary.MultipleObjectsReturned):
         raise http.Http404
-    if string.upper(file_format) == 'XML':
+    if file_format.upper() == 'XML':
         vocabulary_object = VocabularyHandler.xml_response(vocab)
-    elif string.upper(file_format) == 'PY':
+    elif file_format.upper() == 'PY':
         vocabulary_object = VocabularyHandler.py_response(vocab)
-    elif string.upper(file_format) == 'JSON':
+    elif file_format.upper() == 'JSON':
         vocabulary_object = VocabularyHandler.json_response(vocab)
-    elif string.upper(file_format) == 'TKL':
+    elif file_format.upper() == 'TKL':
         vocabulary_object = VocabularyHandler.tkl_response(vocab)
 
     return HttpResponse(vocabulary_object.vocab_file,
