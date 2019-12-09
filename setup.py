@@ -8,7 +8,7 @@ setup(
     long_description='See the home page for more information.',
     include_package_data=True,
     install_requires=[
-        'lxml==4.2.3',
+        'lxml==4.2.6',
     ],
     url='https://github.com/unt-libraries/django-controlled-vocabularies',
     author='University of North Texas Libraries',
@@ -21,7 +21,8 @@ setup(
         'Framework :: Django :: 1.10',
         'Framework :: Django :: 1.11',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
     ]
 )

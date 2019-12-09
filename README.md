@@ -15,7 +15,7 @@ Requirements
 ------------
 
 * Django 1.10 - 1.11
-* Python 2.7
+* Python 3.6 - 3.7
 
 
 System Requirements
