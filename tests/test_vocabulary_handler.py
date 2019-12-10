@@ -170,7 +170,7 @@ def test_create_tkl():
     assert root.enum.string == term.label
     assert root.enum.linkback == prop.label
     assert vocab_handler.vocab_mimetype == 'text/xml'
-    assert '<?xml version="1.0" encoding="UTF-8"?>' in vocab_handler.vocab_file
+    assert b'<?xml version="1.0" encoding="UTF-8"?>' in vocab_handler.vocab_file
 
 
 def test_create_tkl_order_by_name():

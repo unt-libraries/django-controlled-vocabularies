@@ -5,6 +5,8 @@ Change Log
 x.x.x
 -----
 
+* Upgraded Python compatibility to Python 3.6 - 3.7.
+* Removed support for Python 2.
 * Removed VOCABULARIES_URL from test settings and README, as that is a defunct setting.
 
 

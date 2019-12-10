@@ -1,4 +1,3 @@
-# Don't forget to install elementtree, simplejson on whatever server you deploy this on
 from lxml.etree import Element, SubElement, tostring, register_namespace
 import json
 from controlled_vocabularies.models import Term, Property
@@ -60,7 +59,7 @@ class VocabularyHandler:
         dc_language.text = 'English'
         # DC Date
         dc_date = SubElement(rdf_description, dc_namespace+'date')
-        dc_date.text = str(c.vocab.created.strftime("%Y"))
+        dc_date.text = c.vocab.created.strftime("%Y")
 
         for term in Term.objects.filter(vocab_list=c.vocab.id):
             # RDF Property
@@ -87,7 +86,7 @@ class VocabularyHandler:
 
         # File and Mimetype
         c.vocab_mimetype = 'text/xml'
-        c.vocab_file = '<?xml version="1.0" encoding="UTF-8"?>'+tostring(root)
+        c.vocab_file = b'<?xml version="1.0" encoding="UTF-8"?>'+tostring(root)
 
     # Python Handler
     @classmethod
@@ -167,7 +166,7 @@ class VocabularyHandler:
             current_order += 1
         # File and Mimetype
         c.vocab_mimetype = 'text/xml'
-        c.vocab_file = '<?xml version="1.0" encoding="UTF-8"?>'+tostring(root)
+        c.vocab_file = b'<?xml version="1.0" encoding="UTF-8"?>'+tostring(root)
 
     def create_vocab_dict(c, format):
         # Create the vocabulary base url
