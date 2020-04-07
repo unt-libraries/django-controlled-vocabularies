@@ -21,15 +21,15 @@ class TestVocabulary:
         assert vocab.name == 'spaces'
         assert vocab.label == 'spaces'
 
-    def test_unicode(self):
+    def test_str(self):
         vocab = factories.VocabularyFactory()
-        assert unicode(vocab) == vocab.name
+        assert str(vocab) == vocab.name
 
 
 class TestTerm:
-    def test_unicode(self):
+    def test_str(self):
         term = factories.TermFactory()
-        assert unicode(term) == term.name
+        assert str(term) == term.name
 
     def test_save(self):
         term = factories.TermFactory.build(vocab_list=factories.VocabularyFactory())

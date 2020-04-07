@@ -87,8 +87,8 @@ class TestAllVocabularies():
         request = rf.get('/')
         response = views.all_vocabularies(request)
         for term in terms:
-            assert term.vocab_list.name in response.content
-            assert term.name in response.content
+            assert term.vocab_list.name in response.content.decode()
+            assert term.name in response.content.decode()
 
     def test_vocab_json(self, rf):
         TermFactory.create_batch(4)
@@ -116,9 +116,9 @@ class TestVerboseVocabularies():
         response = views.verbose_vocabularies(request)
 
         # Make sure the order is followed by asserting the terms appear in the specified order.
-        assert (response.content.find("'order': 1") <
-                response.content.find("'order': 2") <
-                response.content.find("'order': 3"))
+        assert (response.content.find(b"'order': 1") <
+                response.content.find(b"'order': 2") <
+                response.content.find(b"'order': 3"))
 
     def test_vocab_dict(self, rf):
         terms = OrderedTermFactory.create_batch(4)
@@ -127,10 +127,10 @@ class TestVerboseVocabularies():
         response = views.verbose_vocabularies(request)
 
         for term in terms:
-            assert term.vocab_list.name in response.content
-            assert term.name in response.content
-            assert term.label in response.content
-            assert "'order': {}".format(term.order) in response.content
+            assert term.vocab_list.name in response.content.decode()
+            assert term.name in response.content.decode()
+            assert term.label in response.content.decode()
+            assert "'order': {}".format(term.order) in response.content.decode()
             assert 'http://purl.org/NET/UNTL/vocabularies/{}/#{}'.format(
                 term.vocab_list.name, term.name)
 
