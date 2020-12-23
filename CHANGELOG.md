@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+3.0.0
+-----
+
+* Upgraded to Django 2.2.
+* Dropped Support for Django 1.11 and versions below.
 
 x.x.x
 -----
