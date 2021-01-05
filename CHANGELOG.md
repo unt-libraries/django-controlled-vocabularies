@@ -1,10 +1,11 @@
 Change Log
 ==========
 
-
-x.x.x
+3.0.0
 -----
 
+* Upgraded to Django 2.2.
+* Dropped Support for Django 1.11 and versions below.
 * Upgraded Python compatibility to Python 3.6 - 3.7.
 * Removed support for Python 2.
 * Removed VOCABULARIES_URL from test settings and README, as that is a defunct setting.

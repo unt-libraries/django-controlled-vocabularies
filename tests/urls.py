@@ -1,9 +1,8 @@
-from django.conf.urls import include, url
-
+from django.urls import include, path
 from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^vocabularies/', include('controlled_vocabularies.urls')),
+    path('admin/', admin.site.urls),
+    path('vocabularies/', include('controlled_vocabularies.urls')),
 ]
