@@ -23,6 +23,7 @@ class VocabularyAdmin(admin.ModelAdmin):
 class TermAdmin(admin.ModelAdmin):
     """ Term class that determines how comment appears in admin """
     list_display = ('id', 'name', 'get_vocab', 'label', 'order',)
+    search_fields = ['name', 'label']
     fieldsets = (
         (None, {
             'classes': 'wide extrapretty',
