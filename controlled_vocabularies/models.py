@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.sites.models import Site
 from django.utils.timezone import now
+from django.utils.safestring import mark_safe
 
 ORDER_CHOICES = (
         ('name', 'name'),
@@ -99,8 +100,8 @@ class Term(models.Model):
         self.vocab_list.save()
 
     def get_vocab(self):
-        return "<a href=\'http://%s/admin/vocabularies/vocabulary/%s\'>%s</a>" % \
-               (Site.objects.get_current().domain, self.vocab_list.id, self.vocab_list)
+        return mark_safe("<a href=\'http://%s/admin/vocabularies/vocabulary/%s\'>%s</a>" %
+                         (Site.objects.get_current().domain, self.vocab_list.id, self.vocab_list))
     get_vocab.short_description = 'Vocabulary'
     get_vocab.allow_tags = True
 
@@ -135,15 +136,15 @@ class Property(models.Model):
         self.term_key.vocab_list.save()
 
     def get_vocab(self):
-        return "<a href=\'http://%s/admin/vocabularies/vocabulary/%s\'>%s</a>" % \
-               (Site.objects.get_current().domain,
-                self.term_key.vocab_list.id, self.term_key.vocab_list)
+        return mark_safe("<a href=\'http://%s/admin/vocabularies/vocabulary/%s\'>%s</a>" %
+                         (Site.objects.get_current().domain,
+                          self.term_key.vocab_list.id, self.term_key.vocab_list))
     get_vocab.short_description = 'Vocabulary'
     get_vocab.allow_tags = True
 
     def get_term(self):
-        return "<a href=\'http://%s/admin/vocabularies/term/%s\'>%s</a>" % \
-               (Site.objects.get_current().domain, self.term_key.id, self.term_key)
+        return mark_safe("<a href=\'http://%s/admin/vocabularies/term/%s\'>%s</a>" %
+                         (Site.objects.get_current().domain, self.term_key.id, self.term_key))
     get_term.short_description = 'Term'
     get_term.allow_tags = True
 

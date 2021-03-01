@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+3.X.X
+-----
+
+* Added search field to Terms Admin.
+* Fixed vocabulary links in admin interface.
+
+
 3.0.0
 -----
 
