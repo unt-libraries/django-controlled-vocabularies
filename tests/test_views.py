@@ -173,3 +173,9 @@ class TestVocabularyFile():
         request = rf.get('/')
         response = views.vocabulary_file(request, 'Language', 'TKL')
         assert response.status_code == 200
+
+    def test_raises_404_with_unmatching_file_format(self, rf):
+        VocabularyFactory(name='Language')
+        request = rf.get('/')
+        with pytest.raises(Http404):
+            views.vocabulary_file(request, 'Language', 'doc')
