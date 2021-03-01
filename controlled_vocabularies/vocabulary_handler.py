@@ -74,7 +74,7 @@ class VocabularyHandler:
             rdfs_label.text = term.label
             for prop in Property.objects.filter(term_key=term.id):
                 # DC Description
-                if prop.property_name == 'definition':
+                if prop.property_name == 'description':
                     prop_dc_description = SubElement(rdf_property, dc_namespace+'description')
                     prop_dc_description.text = prop.label
             # RDFS isDefinedBy

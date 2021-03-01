@@ -29,7 +29,7 @@ def test_xml_response():
 
 @pytest.fixture
 def vocab_file_xml():
-    prop = factories.PropertyFactory(property_name='definition')
+    prop = factories.PropertyFactory(property_name='description')
 
     vocab_handler = VocabularyHandler().xml_response(prop.term_key.vocab_list)
     return prop, etree.fromstring(vocab_handler.vocab_file)

@@ -10,7 +10,6 @@ ORDER_CHOICES = (
     )
 
 PROPERTY_NAME_CHOICES = (
-    ('definition', 'Definition'),
     ('description', 'Description'),
     ('note', 'Note'),
     ('system', 'System'),

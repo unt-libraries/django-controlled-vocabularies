@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
             name='Property',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('property_name', models.CharField(help_text=b'The name of the added property. E.g. Description', max_length=50, verbose_name=b'Property Type', choices=[(b'definition', b'Definition'), (b'description', b'Description'), (b'note', b'Note'), (b'system', b'System')])),
+                ('property_name', models.CharField(help_text=b'The name of the added property. E.g. Description', max_length=50, verbose_name=b'Property Type', choices=[(b'description', b'Description'), (b'note', b'Note'), (b'system', b'System')])),
                 ('label', models.TextField(help_text=b'The value for the added property')),
             ],
             options={
