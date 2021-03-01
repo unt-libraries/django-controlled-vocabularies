@@ -1,6 +1,6 @@
 from django import http
 from controlled_vocabularies.models import Vocabulary, Term, Property
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, Http404
 from django.shortcuts import render
 from controlled_vocabularies.vocabulary_handler import VocabularyHandler
 from django.conf import settings
@@ -113,6 +113,7 @@ def vocabulary_file(request, list_name, file_format):
         vocabulary_object = VocabularyHandler.json_response(vocab)
     elif file_format.upper() == 'TKL':
         vocabulary_object = VocabularyHandler.tkl_response(vocab)
-
+    else:
+        raise Http404
     return HttpResponse(vocabulary_object.vocab_file,
                         content_type=vocabulary_object.vocab_mimetype)
