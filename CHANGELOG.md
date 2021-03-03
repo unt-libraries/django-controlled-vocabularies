@@ -6,6 +6,7 @@ Change Log
 
 * Added search field to Terms Admin.
 * Fixed vocabulary links in admin interface.
+* Removed Definition option in PROPERTY_NAME_CHOICES.
 
 
 3.0.0

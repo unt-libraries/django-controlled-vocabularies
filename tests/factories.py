@@ -50,7 +50,7 @@ class OrderedTermFactory(TermFactory):
 
 class PropertyFactory(factory.django.DjangoModelFactory):
     term_key = factory.SubFactory(TermFactory)
-    property_name = fuzzy.FuzzyChoice(['definition', 'description', 'note', 'system'])
+    property_name = fuzzy.FuzzyChoice(['description', 'note', 'system'])
     label = fuzzy.FuzzyText()
 
     class Meta:
