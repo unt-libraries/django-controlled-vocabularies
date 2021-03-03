@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='property',
             name='property_name',
-            field=models.CharField(choices=[(b'description', b'Description'), (b'note', b'Note'), (b'system', b'System')], help_text=b"The name of the added property; e.g., 'Description'.", max_length=50, verbose_name=b'Property Type'),
+            field=models.CharField(choices=[(b'definition', b'Definition'), (b'description', b'Description'), (b'note', b'Note'), (b'system', b'System')], help_text=b"The name of the added property; e.g., 'Description'.", max_length=50, verbose_name=b'Property Type'),
         ),
         migrations.AlterField(
             model_name='term',
