@@ -6,7 +6,7 @@ from . import factories
 
 pytestmark = pytest.mark.django_db
 
-LINK = "<a href='http://{}/admin/vocabularies/{}/{}'>{}</a>"
+LINK = "<a href='http://{}/admin/controlled_vocabularies/{}/{}'>{}</a>"
 
 
 class TestVocabulary:
