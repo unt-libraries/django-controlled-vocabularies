@@ -7,6 +7,8 @@ Change Log
 * Added search field to Terms Admin.
 * Fixed vocabulary links in admin interface.
 * Removed Definition option in PROPERTY_NAME_CHOICES.
+* Bump lxml version.
+* Fix admin links in models.
 
 
 3.0.0
