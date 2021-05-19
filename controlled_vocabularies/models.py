@@ -99,8 +99,9 @@ class Term(models.Model):
         self.vocab_list.save()
 
     def get_vocab(self):
-        return mark_safe("<a href=\'http://%s/admin/controlled_vocabularies/vocabulary/%s\'>%s</a>" %
-                         (Site.objects.get_current().domain, self.vocab_list.id, self.vocab_list))
+        return mark_safe(
+            "<a href=\'http://%s/admin/controlled_vocabularies/vocabulary/%s\'>%s</a>" %
+            (Site.objects.get_current().domain, self.vocab_list.id, self.vocab_list))
     get_vocab.short_description = 'Vocabulary'
     get_vocab.allow_tags = True
 
@@ -135,9 +136,10 @@ class Property(models.Model):
         self.term_key.vocab_list.save()
 
     def get_vocab(self):
-        return mark_safe("<a href=\'http://%s/admin/controlled_vocabularies/vocabulary/%s\'>%s</a>" %
-                         (Site.objects.get_current().domain,
-                          self.term_key.vocab_list.id, self.term_key.vocab_list))
+        return mark_safe(
+            "<a href=\'http://%s/admin/controlled_vocabularies/vocabulary/%s\'>%s</a>" %
+            (Site.objects.get_current().domain, self.term_key.vocab_list.id,
+             self.term_key.vocab_list))
     get_vocab.short_description = 'Vocabulary'
     get_vocab.allow_tags = True
 
