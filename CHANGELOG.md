@@ -7,9 +7,9 @@ Change Log
 * Added search field to Terms Admin.
 * Fixed vocabulary links in admin interface.
 * Removed Definition option in PROPERTY_NAME_CHOICES.
-* Bump lxml version.
-* Fix admin links in models.
-
+* Bumped lxml version.
+* Fixed admin links in models.
+* Fixed [issue #35](https://github.com/unt-libraries/django-controlled-vocabularies/issues/35) to correct XML format rdf:about value.
 
 3.0.0
 -----
