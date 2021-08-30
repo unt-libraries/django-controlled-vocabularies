@@ -1,7 +1,8 @@
-from lxml.etree import Element, SubElement, tostring, register_namespace
 import json
+
 from controlled_vocabularies.models import Term, Property
 from django.conf import settings
+from lxml.etree import Element, SubElement, tostring, register_namespace
 
 
 class VocabularyHandler:
@@ -25,7 +26,7 @@ class VocabularyHandler:
         rdf_namespace = "{%s}" % (rdf_url)
         dc_namespace = "{%s}" % (dc_url)
         rdfs_namespace = "{%s}" % (rdfs_url)
-        purl_namespace = 'http://purl.org/NET/UNTL/vocabularies/formats/'
+        purl_namespace = 'http://purl.org/NET/UNTL/vocabularies/' + c.vocab.name
         # Define Static Attributes
         isDefinedBy_attribs = {'{%s}resource' % rdf_url: purl_namespace}
         # Root
