@@ -81,7 +81,7 @@ def verbose_vocabularies(request, file_format='py'):
         # Loop through the terms
         for term in ordered_term_objects:
             # Create the url for the term
-            term_url = "%svocabularies/%s/#%s" % \
+            term_url = "%s%s/#%s" % \
                 (settings.VOCAB_DOMAIN, vocab.name, term.name)
             # Create the term data dictionary
             term_dict = {
