@@ -63,4 +63,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-VOCAB_DOMAIN = 'http://purl.org/NET/UNTL/'
+VOCAB_DOMAIN = 'https://digital2.library.unt.edu/vocabularies/'

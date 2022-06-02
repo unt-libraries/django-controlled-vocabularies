@@ -17,7 +17,7 @@ NS = {
     'rdfs': RDFS
 }
 
-PURL = 'http://purl.org/NET/UNTL/vocabularies/'
+UNTL = 'https://digital2.library.unt.edu/vocabularies/'
 
 
 def test_xml_response():
@@ -46,7 +46,7 @@ def test_create_xml_Description_element(vocab_file_xml):
 
     element = root.xpath('rdf:Description', namespaces=NS)[0]
     attrib = element.get('{{{}}}about'.format(RDF))
-    assert attrib == PURL + prop.term_key.vocab_list.name
+    assert attrib == UNTL + prop.term_key.vocab_list.name
 
 
 def test_create_xml_title_element(vocab_file_xml):
@@ -89,7 +89,7 @@ def test_create_xml_Property_element(vocab_file_xml):
 
     element = root.xpath('rdf:Property', namespaces=NS)[0]
     attrib = element.get('{{{}}}about'.format(RDF))
-    assert attrib == '{}#{}'.format(PURL + prop.term_key.vocab_list.name, prop.term_key.name)
+    assert attrib == '{}#{}'.format(UNTL + prop.term_key.vocab_list.name, prop.term_key.name)
 
 
 def test_create_xml_label_element(vocab_file_xml):
@@ -111,7 +111,7 @@ def test_create_xml_isDefinedBy_element(vocab_file_xml):
 
     element = root.xpath('rdf:Property/rdfs:isDefinedBy', namespaces=NS)[0]
     attrib = element.get('{{{}}}resource'.format(RDF))
-    assert attrib == PURL + prop.term_key.vocab_list.name
+    assert attrib == UNTL + prop.term_key.vocab_list.name
 
 
 def test_py_response():
@@ -240,7 +240,7 @@ def test_create_vocab_dict_term_sub_dict():
     assert term_dict['name'] == term.name
     assert term_dict['label'] == term.label
     assert term_dict['order'] == term.order
-    assert term_dict['url'] == 'http://purl.org/NET/UNTL/vocabularies/{}/#{}'.format(
+    assert term_dict['url'] == 'https://digital2.library.unt.edu/vocabularies/{}/#{}'.format(
         vocab.name, term.name)
     assert 'properties' in term_dict
 

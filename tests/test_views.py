@@ -72,7 +72,7 @@ class TestTermList():
         assert response.context['vocabulary'] == vocab
         for term in response.context['terms']:
             assert term['term_item'] in terms
-        assert response.context['domain'] == 'http://purl.org/NET/UNTL/'
+        assert response.context['domain'] == 'https://digital2.library.unt.edu/vocabularies/'
 
 
 class TestAllVocabularies():
@@ -131,7 +131,7 @@ class TestVerboseVocabularies():
             assert term.name in response.content.decode()
             assert term.label in response.content.decode()
             assert "'order': {}".format(term.order) in response.content.decode()
-            assert 'http://purl.org/NET/UNTL/vocabularies/{}/#{}'.format(
+            assert 'https://digital2.library.unt.edu/vocabularies/{}/#{}'.format(
                 term.vocab_list.name, term.name)
 
     def test_vocab_json(self, rf):

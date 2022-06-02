@@ -10,6 +10,7 @@ Change Log
 * Bumped lxml version.
 * Fixed admin links in models.
 * Fixed [issue #35](https://github.com/unt-libraries/django-controlled-vocabularies/issues/35) to correct XML format rdf:about value.
+* Fixed [issue #38](https://github.com/unt-libraries/django-controlled-vocabularies/issues/38) to replace any URL that led to a UNTL PURL URL.
 
 3.0.0
 -----

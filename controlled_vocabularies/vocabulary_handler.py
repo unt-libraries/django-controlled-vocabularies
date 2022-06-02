@@ -26,9 +26,9 @@ class VocabularyHandler:
         rdf_namespace = "{%s}" % (rdf_url)
         dc_namespace = "{%s}" % (dc_url)
         rdfs_namespace = "{%s}" % (rdfs_url)
-        purl_namespace = 'http://purl.org/NET/UNTL/vocabularies/' + c.vocab.name
+        untl_namespace = 'https://digital2.library.unt.edu/vocabularies/' + c.vocab.name
         # Define Static Attributes
-        isDefinedBy_attribs = {'{%s}resource' % rdf_url: purl_namespace}
+        isDefinedBy_attribs = {'{%s}resource' % rdf_url: untl_namespace}
         # Root
         root = Element(
             rdf_namespace + 'RDF',
@@ -44,7 +44,7 @@ class VocabularyHandler:
         rdf_description = SubElement(
             root,
             '{%s}Description' % rdf_url,
-            {'{%s}about' % rdf_url: purl_namespace}
+            {'{%s}about' % rdf_url: untl_namespace}
         )
         # DC Title
         dc_title = SubElement(rdf_description, dc_namespace+'title')
@@ -64,7 +64,7 @@ class VocabularyHandler:
 
         for term in Term.objects.filter(vocab_list=c.vocab.id):
             # RDF Property
-            property_attribs = {'{%s}about' % rdf_url: purl_namespace+'#'+term.name}
+            property_attribs = {'{%s}about' % rdf_url: untl_namespace+'#'+term.name}
             rdf_property = SubElement(
                 root,
                 rdf_namespace+'Property',
@@ -171,7 +171,7 @@ class VocabularyHandler:
 
     def create_vocab_dict(c, format):
         # Create the vocabulary base url
-        vocabulary_url = "%svocabularies/%s/" % (settings.VOCAB_DOMAIN, c.vocab.name)
+        vocabulary_url = "%s%s/" % (settings.VOCAB_DOMAIN, c.vocab.name)
         # Generate the Vocabulary Dictionary
         vocab_dict = {"name": c.vocab.name, "label": c.vocab.label,
                       "maintainer": c.vocab.maintainer, "order": c.vocab.order,
