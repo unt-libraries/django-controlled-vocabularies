@@ -1,7 +1,7 @@
 Django Controlled Vocabularies
 ==============================
 
-[![Build Status](https://travis-ci.org/unt-libraries/django-controlled-vocabularies.svg?branch=master)](https://travis-ci.org/unt-libraries/django-controlled-vocabularies)
+[![Build Status](https://github.com/unt-libraries/django-controlled-vocabularies/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/unt-libraries/django-controlled-vocabularies/actions)
 
 
 About
