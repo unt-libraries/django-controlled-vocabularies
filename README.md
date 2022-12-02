@@ -80,4 +80,4 @@ Contributors
 * [Joey Liechty](https://github.com/yeahdef)
 * [Gio Gottardi](https://github.com/somexpert)
 * [Madhulika Bayyavarapu](https://github.com/madhulika95b)
-* [Gracie Flores](https://github.com/gracieflores)
+* [Gracie Flores-Hays](https://github.com/gracieflores)
