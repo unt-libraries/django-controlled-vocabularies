@@ -38,7 +38,7 @@ def vocabulary_list(request):
 def term_list(request, vocabulary_name):
     try:
         vocab_object = Vocabulary.objects.get(name__exact=vocabulary_name)
-    except(Vocabulary.DoesNotExist, Vocabulary.MultipleObjectsReturned):
+    except (Vocabulary.DoesNotExist, Vocabulary.MultipleObjectsReturned):
         raise http.Http404
     term_list = create_term_list(vocab_object.id)
 
@@ -103,7 +103,7 @@ def verbose_vocabularies(request, file_format='py'):
 def vocabulary_file(request, list_name, file_format):
     try:
         vocab = Vocabulary.objects.get(name__exact=list_name)
-    except(Vocabulary.DoesNotExist, Vocabulary.MultipleObjectsReturned):
+    except (Vocabulary.DoesNotExist, Vocabulary.MultipleObjectsReturned):
         raise http.Http404
     if file_format.upper() == 'XML':
         vocabulary_object = VocabularyHandler.xml_response(vocab)

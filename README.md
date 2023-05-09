@@ -14,8 +14,8 @@ includes: The [UNT Digital Library](http://digital.library.unt.edu), [The Portal
 Requirements
 ------------
 
-* Django 2.2
-* Python 3.6 - 3.7
+* Django 4.1
+* Python 3.8 - 3.10
 
 
 System Requirements
@@ -80,3 +80,4 @@ Contributors
 * [Joey Liechty](https://github.com/yeahdef)
 * [Gio Gottardi](https://github.com/somexpert)
 * [Madhulika Bayyavarapu](https://github.com/madhulika95b)
+* [Gracie Flores-Hays](https://github.com/gracieflores)
