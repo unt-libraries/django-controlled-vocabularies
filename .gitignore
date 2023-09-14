@@ -7,3 +7,4 @@ build/
 *.sqlite3
 .cache
 .pytest_cache
+.python-version
