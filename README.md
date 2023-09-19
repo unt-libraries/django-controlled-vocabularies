@@ -14,7 +14,7 @@ includes: The [UNT Digital Library](http://digital.library.unt.edu), [The Portal
 Requirements
 ------------
 
-* Django 4.1
+* Django 4.2
 * Python 3.8 - 3.10
 
 

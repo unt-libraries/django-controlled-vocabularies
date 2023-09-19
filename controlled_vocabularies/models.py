@@ -56,6 +56,9 @@ class Vocabulary(models.Model):
             self.created = now()
         self.name = self.name.strip()
         self.label = self.label.strip()
+        if 'update_fields' in kwargs:
+            kwargs['update_fields'] = {'created', 'name', 'label', 'modified'}.union(
+                kwargs['update_fields'])
         super(Vocabulary, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -95,6 +98,9 @@ class Term(models.Model):
         self.vocab_list.modified = now()
         self.name = self.name.strip()
         self.label = self.label.strip()
+        if 'update_fields' in kwargs:
+            kwargs['update_fields'] = {'vocab_list', 'name', 'label'}.union(
+                kwargs['update_fields'])
         super(Term, self).save(*args, **kwargs)
         self.vocab_list.save()
 
@@ -132,6 +138,9 @@ class Property(models.Model):
         self.property_name = self.property_name.lower()
         self.term_key.vocab_list.modified = now()
         self.label = self.label.strip()
+        if 'update_fields' in kwargs:
+            kwargs['update_fields'] = {'term_key', 'property_name', 'label'}.union(
+                kwargs['update_fields'])
         super(Property, self).save(*args, **kwargs)
         self.term_key.vocab_list.save()
 
