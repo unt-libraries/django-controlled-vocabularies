@@ -35,7 +35,7 @@ If you simply want to test out the app to see how it works, skip to the Developi
 
     Install with SSH:
     ```sh
-        $ pip install git+https://github.com/unt-libraries/django-controlled-vocabularies
+        $ pip install git+ssh://git@github.com/unt-libraries/django-controlled-vocabularies
     ```
 
     OR install with HTTPS:
@@ -88,7 +88,7 @@ This will allow you to run the tests, easily make changes to the app, and visual
 
 2.  Navigate into the repository:
     ```sh
-        cd django-controlled-vocabularies
+        $ cd django-controlled-vocabularies
     ```
 
 3.  Prepare and activate a Python virtual environment for the app using virtualenv, pyenv, pipenv, or something similar. Leave it activated for the remaining instructions.
@@ -106,17 +106,17 @@ This will allow you to run the tests, easily make changes to the app, and visual
 
 6.  Run the migrations (steps 6-10 are for viewing/testing the app locally from your web browser):
     ```sh
-        python manage.py migrate
+        $ python manage.py migrate
     ```
 
 7.  Create a superuser for yourself so you can access the admin portion of the app:
     ```sh
-        python manage.py createsuperuser
+        $ python manage.py createsuperuser
     ```
 
 8.  Run the test server:
     ```sh
-        python manage.py runserver
+        $ python manage.py runserver
     ```
 
 9.  Navigate to localhost:8000/vocabularies/ in your browser and test the app as desired. The admin interface is located at localhost:8000/admin/.
