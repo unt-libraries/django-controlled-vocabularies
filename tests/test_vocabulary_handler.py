@@ -38,14 +38,14 @@ def vocab_file_xml():
 def test_create_xml_RDF_element(vocab_file_xml):
     _, root = vocab_file_xml
 
-    assert root.tag == '{{{}}}RDF'.format(RDF)
+    assert root.tag == f'{{{RDF}}}RDF'
 
 
 def test_create_xml_Description_element(vocab_file_xml):
     prop, root = vocab_file_xml
 
     element = root.xpath('rdf:Description', namespaces=NS)[0]
-    attrib = element.get('{{{}}}about'.format(RDF))
+    attrib = element.get(f'{{{RDF}}}about')
     assert attrib == UNTL + prop.term_key.vocab_list.name
 
 
@@ -88,8 +88,8 @@ def test_create_xml_Property_element(vocab_file_xml):
     prop, root = vocab_file_xml
 
     element = root.xpath('rdf:Property', namespaces=NS)[0]
-    attrib = element.get('{{{}}}about'.format(RDF))
-    assert attrib == '{}#{}'.format(UNTL + prop.term_key.vocab_list.name, prop.term_key.name)
+    attrib = element.get(f'{{{RDF}}}about')
+    assert attrib == f'{UNTL + prop.term_key.vocab_list.name}#{prop.term_key.name}'
 
 
 def test_create_xml_label_element(vocab_file_xml):
@@ -110,7 +110,7 @@ def test_create_xml_isDefinedBy_element(vocab_file_xml):
     prop, root = vocab_file_xml
 
     element = root.xpath('rdf:Property/rdfs:isDefinedBy', namespaces=NS)[0]
-    attrib = element.get('{{{}}}resource'.format(RDF))
+    attrib = element.get(f'{{{RDF}}}resource')
     assert attrib == UNTL + prop.term_key.vocab_list.name
 
 
@@ -240,8 +240,7 @@ def test_create_vocab_dict_term_sub_dict():
     assert term_dict['name'] == term.name
     assert term_dict['label'] == term.label
     assert term_dict['order'] == term.order
-    assert term_dict['url'] == 'https://digital2.library.unt.edu/vocabularies/{}/#{}'.format(
-        vocab.name, term.name)
+    assert term_dict['url'] == f'https://digital2.library.unt.edu/vocabularies/{vocab.name}/#{term.name}'
     assert 'properties' in term_dict
 
 
