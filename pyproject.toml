@@ -1,0 +1,78 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "django-controlled-vocabularies"
+description = "A Django app used to manage vocabularies used by the UNT Libraries."
+readme = "README.md"
+version = "6.0.0"
+keywords=["django", "controlled", "vocabularies", "vocabulary"]
+requires-python = ">=3.12"
+license = { text = "LICENSE.txt" }
+authors = [
+  {name = "University of North Texas Libraries", email = "mark.phillips@unt.edu"}
+]
+classifiers = [
+    "Natural Language :: English",
+    "Environment :: Web Environment",
+    "Framework :: Django :: 6.1",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
+dependencies = [
+    "Django~=6.1",
+    "lxml>=6.0.1,<7.0.0"
+]
+
+[project.urls]
+Homepage = "https://github.com/unt-libraries/django-controlled-vocabularies"
+Repository = "https://github.com/unt-libraries/django-controlled-vocabularies.git"
+
+[project.optional-dependencies]
+test = [
+    "pytest~=9.0.3",
+    "pytest-django~=4.5.2",
+    "factory_boy>=3.0",
+    "ruff~=0.15.9",
+]
+
+[tool.ruff]
+line-length = 99
+target-version = "py314"
+extend-exclude = ['migrations']
+
+[tool.ruff.format]
+quote-style = "single"
+
+[tool.ruff.lint]
+select = ["E", "F", "W"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "tests.settings"
+
+[tool.tox]
+legacy_tox_ini = """
+    [tox]
+    envlist =
+        py{312,313,314}
+        ruff
+
+    [pytest]
+    DJANGO_SETTINGS_MODULE = tests.settings
+
+    [testenv]
+    extras =
+        test
+    commands = 
+        pytest
+
+    [testenv:ruff]
+    skip_install = true
+    deps =
+        ruff
+    commands =
+        ruff check .
+"""

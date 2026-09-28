@@ -9,7 +9,7 @@ from .factories import VocabularyFactory, TermFactory, OrderedTermFactory
 pytestmark = pytest.mark.django_db
 
 
-class TestAbout():
+class TestAbout:
 
     def test_status_ok(self, rf):
         request = rf.get('/')
@@ -21,7 +21,7 @@ class TestAbout():
         assert response.templates[0].name == 'vocabularies/about.html'
 
 
-class TestVocabularyList():
+class TestVocabularyList:
 
     def test_status_ok(self, rf):
         request = rf.get('/')
@@ -40,7 +40,7 @@ class TestVocabularyList():
         assert response.context['vocabularies'].count() == 10
 
 
-class TestTermList():
+class TestTermList:
 
     def test_status_ok_with_matching_vocabulary(self, rf):
         TermFactory(vocab_list=VocabularyFactory(name='Language'))
@@ -75,7 +75,7 @@ class TestTermList():
         assert response.context['domain'] == 'https://digital2.library.unt.edu/vocabularies/'
 
 
-class TestAllVocabularies():
+class TestAllVocabularies:
 
     def test_status_ok(self, rf):
         request = rf.get('/')
@@ -98,7 +98,7 @@ class TestAllVocabularies():
         assert json.loads(response.content)
 
 
-class TestVerboseVocabularies():
+class TestVerboseVocabularies:
 
     def test_status_ok(self, rf):
         request = rf.get('/')
@@ -130,9 +130,8 @@ class TestVerboseVocabularies():
             assert term.vocab_list.name in response.content.decode()
             assert term.name in response.content.decode()
             assert term.label in response.content.decode()
-            assert "'order': {}".format(term.order) in response.content.decode()
-            assert 'https://digital2.library.unt.edu/vocabularies/{}/#{}'.format(
-                term.vocab_list.name, term.name)
+            assert f"'order': {term.order}" in response.content.decode()
+            assert f'https://digital2.library.unt.edu/vocabularies/{term.vocab_list.name}/#{term.name}'
 
     def test_vocab_json(self, rf):
         OrderedTermFactory.create_batch(4)
@@ -143,7 +142,7 @@ class TestVerboseVocabularies():
         assert json.loads(response.content)
 
 
-class TestVocabularyFile():
+class TestVocabularyFile:
 
     def test_raises_http404_without_matching_vocabulary(self, rf):
         request = rf.get('/')

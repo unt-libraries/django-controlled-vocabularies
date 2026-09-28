@@ -14,8 +14,8 @@ includes: The [UNT Digital Library](http://digital.library.unt.edu), [The Portal
 Requirements
 ------------
 
-* Django 4.2
-* Python 3.8 - 3.10
+* Django 6.1
+* Python 3.12 - 3.14
 
 
 System Requirements
@@ -95,12 +95,14 @@ This will allow you to run the tests, easily make changes to the app, and visual
 
 4.  Install all requirements:
     ```sh
-        $ pip install -r requirements.txt
+        $ pip install .'[test]'
     ```
 
-5.  Run the test suite if desired:
+5.  Run the test suite and linter if desired:
     ```sh
         $ pytest
+        # or
+        $ ruff check .
     ```
     Note: You may also use `tox` to run the test suite, but there is only a benefit to this method if you have multiple Python versions available, and it does not require a virtual environment.
 
@@ -139,3 +141,4 @@ Contributors
 * [Gio Gottardi](https://github.com/somexpert)
 * [Madhulika Bayyavarapu](https://github.com/madhulika95b)
 * [Gracie Flores-Hays](https://github.com/gracieflores)
+* [Trey Clark](https://github.com/clarktr1)
