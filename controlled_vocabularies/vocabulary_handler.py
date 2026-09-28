@@ -23,9 +23,9 @@ class VocabularyHandler:
         dc_url = 'http://purl.org/dc/elements/1.1/'
         rdfs_url = 'http://www.w3.org/2000/01/rdf-schema#'
         # Define Namespaces
-        rdf_namespace = f"{{{rdf_url}}}"
-        dc_namespace = f"{{{dc_url}}}"
-        rdfs_namespace = f"{{{rdfs_url}}}"
+        rdf_namespace = f'{{{rdf_url}}}'
+        dc_namespace = f'{{{dc_url}}}'
+        rdfs_namespace = f'{{{rdfs_url}}}'
         untl_namespace = f'https://digital2.library.unt.edu/vocabularies/{c.vocab.name}'
         # Define Static Attributes
         isDefinedBy_attribs = {f'{{{rdf_url}}}resource': untl_namespace}
@@ -141,7 +141,7 @@ class VocabularyHandler:
         # string_attribs = {'xml:lang': 'en'}
         # string_attribs = {'lang': 'en'}
         xmlns = "http://www.w3.org/XML/1998/namespace"
-        string_attribs = {f"{{{xmlns}}}lang": "en"}
+        string_attribs = {f'{{{xmlns}}}lang': 'en'}
         root = Element('authority', auth_attribs)
         # Sort Terms by order field
         if c.vocab.order == 'name':
@@ -171,7 +171,7 @@ class VocabularyHandler:
 
     def create_vocab_dict(c, format):
         # Create the vocabulary base url
-        vocabulary_url = f"{settings.VOCAB_DOMAIN}{c.vocab.name}/"
+        vocabulary_url = f'{settings.VOCAB_DOMAIN}{c.vocab.name}/'
         # Generate the Vocabulary Dictionary
         vocab_dict = {"name": c.vocab.name, "label": c.vocab.label,
                       "maintainer": c.vocab.maintainer, "order": c.vocab.order,
