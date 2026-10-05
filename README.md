@@ -101,7 +101,6 @@ This will allow you to run the tests, easily make changes to the app, and visual
 5.  Run the test suite and linter if desired:
     ```sh
         $ pytest
-        # or
         $ ruff check .
     ```
     Note: You may also use `tox` to run the test suite, but there is only a benefit to this method if you have multiple Python versions available, and it does not require a virtual environment.

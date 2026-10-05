@@ -4,11 +4,11 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "django-controlled-vocabularies"
-description = "A Django app used to manage vocabularies used by the UNT Libraries."
+description = "A Django app used to manage controlled vocabularies."
 readme = "README.md"
 version = "6.0.0"
 keywords=["django", "controlled", "vocabularies", "vocabulary"]
-requires-python = ">=3.12"
+requires-python = ">=3.12,<3.15"
 license = { text = "LICENSE.txt" }
 authors = [
   {name = "University of North Texas Libraries", email = "mark.phillips@unt.edu"}
@@ -42,7 +42,7 @@ test = [
 [tool.ruff]
 line-length = 99
 target-version = "py314"
-extend-exclude = ['migrations']
+extend-exclude = ["migrations"]
 
 [tool.ruff.format]
 quote-style = "single"

@@ -23,12 +23,12 @@ class VocabularyHandler:
         dc_url = 'http://purl.org/dc/elements/1.1/'
         rdfs_url = 'http://www.w3.org/2000/01/rdf-schema#'
         # Define Namespaces
-        rdf_namespace = f"{{{rdf_url}}}"
-        dc_namespace = f"{{{dc_url}}}"
-        rdfs_namespace = f"{{{rdfs_url}}}"
+        rdf_namespace = '{' + rdf_url + '}'
+        dc_namespace = '{' + dc_url + '}'
+        rdfs_namespace = '{' + rdfs_url + '}'
         untl_namespace = f'https://digital2.library.unt.edu/vocabularies/{c.vocab.name}'
         # Define Static Attributes
-        isDefinedBy_attribs = {f'{{{rdf_url}}}resource': untl_namespace}
+        isDefinedBy_attribs = {'{' + rdf_url + '}resource': untl_namespace}
         # Root
         root = Element(
             rdf_namespace + 'RDF',
@@ -43,31 +43,31 @@ class VocabularyHandler:
         register_namespace('rdf', 'rdf:about')
         rdf_description = SubElement(
             root,
-            f'{{{rdf_url}}}Description',
-            {f'{{{rdf_url}}}about': untl_namespace}
+            '{' + rdf_url + '}Description',
+            {'{' + rdf_url + '}about': untl_namespace}
         )
         # DC Title
-        dc_title = SubElement(rdf_description, f'{{{dc_url}}}title')
+        dc_title = SubElement(rdf_description, '{' + dc_url + '}title')
         dc_title.text = c.vocab.label
         # DC Publisher
-        dc_publisher = SubElement(rdf_description, f'{{{dc_url}}}publisher')
+        dc_publisher = SubElement(rdf_description, '{' + dc_url + '}publisher')
         dc_publisher.text = 'University of North Texas Libraries'
         # DC Description
-        dc_description = SubElement(rdf_description, f'{{{dc_url}}}description')
+        dc_description = SubElement(rdf_description, '{' + dc_url + '}description')
         dc_description.text = c.vocab.definition
         # DC Language
-        dc_language = SubElement(rdf_description, f'{{{dc_url}}}language')
+        dc_language = SubElement(rdf_description, '{' + dc_url + '}language')
         dc_language.text = 'English'
         # DC Date
-        dc_date = SubElement(rdf_description, f'{{{dc_url}}}date')
+        dc_date = SubElement(rdf_description, '{' + dc_url + '}date')
         dc_date.text = c.vocab.created.strftime("%Y")
 
         for term in Term.objects.filter(vocab_list=c.vocab.id):
             # RDF Property
-            property_attribs = {f'{{{rdf_url}}}about': untl_namespace+'#'+term.name}
+            property_attribs = {'{' + rdf_url + '}about': untl_namespace+'#'+term.name}
             rdf_property = SubElement(
                 root,
-                f'{{{rdf_url}}}Property',
+                '{' + rdf_url + '}Property',
                 property_attribs
             )
             # RDFS Label
@@ -140,8 +140,8 @@ class VocabularyHandler:
         # used to look like this:
         # string_attribs = {'xml:lang': 'en'}
         # string_attribs = {'lang': 'en'}
-        xmlns = "http://www.w3.org/XML/1998/namespace"
-        string_attribs = {f"{{{xmlns}}}lang": "en"}
+        xmlns = 'http://www.w3.org/XML/1998/namespace'
+        string_attribs = {'{' + xmlns + '}lang': 'en'}
         root = Element('authority', auth_attribs)
         # Sort Terms by order field
         if c.vocab.order == 'name':

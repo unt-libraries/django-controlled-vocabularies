@@ -38,14 +38,14 @@ def vocab_file_xml():
 def test_create_xml_RDF_element(vocab_file_xml):
     _, root = vocab_file_xml
 
-    assert root.tag == f'{{{RDF}}}RDF'
+    assert root.tag == '{' + RDF + '}RDF'
 
 
 def test_create_xml_Description_element(vocab_file_xml):
     prop, root = vocab_file_xml
 
     element = root.xpath('rdf:Description', namespaces=NS)[0]
-    attrib = element.get(f'{{{RDF}}}about')
+    attrib = element.get('{' + RDF + '}about')
     assert attrib == UNTL + prop.term_key.vocab_list.name
 
 
@@ -88,7 +88,7 @@ def test_create_xml_Property_element(vocab_file_xml):
     prop, root = vocab_file_xml
 
     element = root.xpath('rdf:Property', namespaces=NS)[0]
-    attrib = element.get(f'{{{RDF}}}about')
+    attrib = element.get('{' + RDF + '}about')
     assert attrib == f'{UNTL + prop.term_key.vocab_list.name}#{prop.term_key.name}'
 
 
@@ -110,7 +110,7 @@ def test_create_xml_isDefinedBy_element(vocab_file_xml):
     prop, root = vocab_file_xml
 
     element = root.xpath('rdf:Property/rdfs:isDefinedBy', namespaces=NS)[0]
-    attrib = element.get(f'{{{RDF}}}resource')
+    attrib = element.get('{' + RDF + '}resource')
     assert attrib == UNTL + prop.term_key.vocab_list.name
 
 
