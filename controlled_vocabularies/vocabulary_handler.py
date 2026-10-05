@@ -171,7 +171,7 @@ class VocabularyHandler:
 
     def create_vocab_dict(c, format):
         # Create the vocabulary base url
-        vocabulary_url = f"{settings.VOCAB_DOMAIN}{c.vocab.name}/"
+        vocabulary_url = f'{settings.VOCAB_DOMAIN}{c.vocab.name}/'
         # Generate the Vocabulary Dictionary
         vocab_dict = {"name": c.vocab.name, "label": c.vocab.label,
                       "maintainer": c.vocab.maintainer, "order": c.vocab.order,
