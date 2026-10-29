@@ -7,7 +7,7 @@ Change Log
 * Dropped support for Django 4.2.
 * Dropped support for Python 3.8-3.10.
 * Added support for Python 3.12-3.14.
-* Replaced setup.py with pyproject.toml
+* Replaced setup.py with pyproject.toml.
 
 5.0.0
 -----

@@ -9,7 +9,8 @@ readme = "README.md"
 version = "6.0.0"
 keywords=["django", "controlled", "vocabularies", "vocabulary"]
 requires-python = ">=3.12,<3.15"
-license = { text = "LICENSE.txt" }
+license = "BSD-3-Clause"
+license-files = ["LICENSE.txt"]
 authors = [
   {name = "University of North Texas Libraries", email = "mark.phillips@unt.edu"}
 ]

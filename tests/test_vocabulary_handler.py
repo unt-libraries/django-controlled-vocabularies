@@ -46,7 +46,7 @@ def test_create_xml_Description_element(vocab_file_xml):
 
     element = root.xpath('rdf:Description', namespaces=NS)[0]
     attrib = element.get('{' + RDF + '}about')
-    assert attrib == UNTL + prop.term_key.vocab_list.name
+    assert attrib == f'{UNTL}{prop.term_key.vocab_list.name}'
 
 
 def test_create_xml_title_element(vocab_file_xml):
@@ -89,7 +89,7 @@ def test_create_xml_Property_element(vocab_file_xml):
 
     element = root.xpath('rdf:Property', namespaces=NS)[0]
     attrib = element.get('{' + RDF + '}about')
-    assert attrib == f'{UNTL + prop.term_key.vocab_list.name}#{prop.term_key.name}'
+    assert attrib == f'{UNTL}{prop.term_key.vocab_list.name}#{prop.term_key.name}'
 
 
 def test_create_xml_label_element(vocab_file_xml):
