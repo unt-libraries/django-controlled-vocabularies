@@ -23,12 +23,12 @@ class VocabularyHandler:
         dc_url = 'http://purl.org/dc/elements/1.1/'
         rdfs_url = 'http://www.w3.org/2000/01/rdf-schema#'
         # Define Namespaces
-        rdf_namespace = "{%s}" % (rdf_url)
-        dc_namespace = "{%s}" % (dc_url)
-        rdfs_namespace = "{%s}" % (rdfs_url)
-        untl_namespace = 'https://digital2.library.unt.edu/vocabularies/' + c.vocab.name
+        rdf_namespace = '{' + rdf_url + '}'
+        dc_namespace = '{' + dc_url + '}'
+        rdfs_namespace = '{' + rdfs_url + '}'
+        untl_namespace = f'https://digital2.library.unt.edu/vocabularies/{c.vocab.name}'
         # Define Static Attributes
-        isDefinedBy_attribs = {'{%s}resource' % rdf_url: untl_namespace}
+        isDefinedBy_attribs = {f'{rdf_namespace}resource': untl_namespace}
         # Root
         root = Element(
             rdf_namespace + 'RDF',
@@ -43,45 +43,45 @@ class VocabularyHandler:
         register_namespace('rdf', 'rdf:about')
         rdf_description = SubElement(
             root,
-            '{%s}Description' % rdf_url,
-            {'{%s}about' % rdf_url: untl_namespace}
+            f'{rdf_namespace}Description',
+            {f'{rdf_namespace}about': untl_namespace}
         )
         # DC Title
-        dc_title = SubElement(rdf_description, dc_namespace+'title')
+        dc_title = SubElement(rdf_description, f'{dc_namespace}title')
         dc_title.text = c.vocab.label
         # DC Publisher
-        dc_publisher = SubElement(rdf_description, dc_namespace+'publisher')
+        dc_publisher = SubElement(rdf_description, f'{dc_namespace}publisher')
         dc_publisher.text = 'University of North Texas Libraries'
         # DC Description
-        dc_description = SubElement(rdf_description, dc_namespace+'description')
+        dc_description = SubElement(rdf_description, f'{dc_namespace}description')
         dc_description.text = c.vocab.definition
         # DC Language
-        dc_language = SubElement(rdf_description, dc_namespace+'language')
+        dc_language = SubElement(rdf_description, f'{dc_namespace}language')
         dc_language.text = 'English'
         # DC Date
-        dc_date = SubElement(rdf_description, dc_namespace+'date')
+        dc_date = SubElement(rdf_description, f'{dc_namespace}date')
         dc_date.text = c.vocab.created.strftime("%Y")
 
         for term in Term.objects.filter(vocab_list=c.vocab.id):
             # RDF Property
-            property_attribs = {'{%s}about' % rdf_url: untl_namespace+'#'+term.name}
+            property_attribs = {f'{rdf_namespace}about': untl_namespace+'#'+term.name}
             rdf_property = SubElement(
                 root,
-                rdf_namespace+'Property',
+                f'{rdf_namespace}Property',
                 property_attribs
             )
             # RDFS Label
-            rdfs_label = SubElement(rdf_property, rdfs_namespace+'label')
+            rdfs_label = SubElement(rdf_property, f'{rdfs_namespace}label')
             rdfs_label.text = term.label
             for prop in Property.objects.filter(term_key=term.id):
                 # DC Description
                 if prop.property_name == 'description':
-                    prop_dc_description = SubElement(rdf_property, dc_namespace+'description')
+                    prop_dc_description = SubElement(rdf_property, f'{dc_namespace}description')
                     prop_dc_description.text = prop.label
             # RDFS isDefinedBy
             SubElement(
                 rdf_property,
-                rdfs_namespace+'isDefinedBy',
+                f'{rdfs_namespace}isDefinedBy',
                 isDefinedBy_attribs
             )
 
@@ -140,8 +140,8 @@ class VocabularyHandler:
         # used to look like this:
         # string_attribs = {'xml:lang': 'en'}
         # string_attribs = {'lang': 'en'}
-        xmlns = "http://www.w3.org/XML/1998/namespace"
-        string_attribs = {"{%s}lang" % xmlns: "en"}
+        xmlns = 'http://www.w3.org/XML/1998/namespace'
+        string_attribs = {f'{{{xmlns}}}lang': 'en'}
         root = Element('authority', auth_attribs)
         # Sort Terms by order field
         if c.vocab.order == 'name':
@@ -171,7 +171,7 @@ class VocabularyHandler:
 
     def create_vocab_dict(c, format):
         # Create the vocabulary base url
-        vocabulary_url = "%s%s/" % (settings.VOCAB_DOMAIN, c.vocab.name)
+        vocabulary_url = f'{settings.VOCAB_DOMAIN}{c.vocab.name}/'
         # Generate the Vocabulary Dictionary
         vocab_dict = {"name": c.vocab.name, "label": c.vocab.label,
                       "maintainer": c.vocab.maintainer, "order": c.vocab.order,
@@ -186,7 +186,7 @@ class VocabularyHandler:
         term_list = []
         for term in Term.objects.filter(vocab_list=c.vocab.id):
             term_dict = {}
-            term_url = "%s#%s" % (vocabulary_url, term.name)
+            term_url = f'{vocabulary_url}#{term.name}'
             # Generate the Term Dictionary
             term_dict = {
                 "name": term.name,
