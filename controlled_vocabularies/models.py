@@ -59,7 +59,7 @@ class Vocabulary(models.Model):
         if 'update_fields' in kwargs:
             kwargs['update_fields'] = {'created', 'name', 'label', 'modified'}.union(
                 kwargs['update_fields'])
-        super(Vocabulary, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -101,13 +101,13 @@ class Term(models.Model):
         if 'update_fields' in kwargs:
             kwargs['update_fields'] = {'vocab_list', 'name', 'label'}.union(
                 kwargs['update_fields'])
-        super(Term, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
         self.vocab_list.save()
 
     def get_vocab(self):
         return mark_safe(
-            "<a href=\'http://%s/admin/controlled_vocabularies/vocabulary/%s\'>%s</a>" %
-            (Site.objects.get_current().domain, self.vocab_list.id, self.vocab_list))
+            f"<a href=\'http://{Site.objects.get_current().domain}/admin/controlled_vocabularies/vocabulary/{self.vocab_list.id}\'>{self.vocab_list}</a>"
+        )
     get_vocab.short_description = 'Vocabulary'
     get_vocab.allow_tags = True
 
@@ -141,20 +141,20 @@ class Property(models.Model):
         if 'update_fields' in kwargs:
             kwargs['update_fields'] = {'term_key', 'property_name', 'label'}.union(
                 kwargs['update_fields'])
-        super(Property, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
         self.term_key.vocab_list.save()
 
     def get_vocab(self):
         return mark_safe(
-            "<a href=\'http://%s/admin/controlled_vocabularies/vocabulary/%s\'>%s</a>" %
-            (Site.objects.get_current().domain, self.term_key.vocab_list.id,
-             self.term_key.vocab_list))
+            f"<a href=\'http://{Site.objects.get_current().domain}/admin/controlled_vocabularies/vocabulary/{self.term_key.vocab_list.id}\'>{self.term_key.vocab_list}</a>"
+        )
     get_vocab.short_description = 'Vocabulary'
     get_vocab.allow_tags = True
 
     def get_term(self):
-        return mark_safe("<a href=\'http://%s/admin/controlled_vocabularies/term/%s\'>%s</a>" %
-                         (Site.objects.get_current().domain, self.term_key.id, self.term_key))
+        return mark_safe(
+            f"<a href=\'http://{Site.objects.get_current().domain}/admin/controlled_vocabularies/term/{self.term_key.id}\'>{self.term_key}</a>"
+        )
     get_term.short_description = 'Term'
     get_term.allow_tags = True
 
